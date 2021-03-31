@@ -1,11 +1,6 @@
 import React from "react";
-import './App.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import HomePage from "./Pages/HomePage.js";
 import DetailPage from "./Pages/DetailPage.js";
@@ -27,9 +22,8 @@ export default function App() {
         </Route>
         <Route path="/signin">
           <SigninPage />
-        </Route>          
+        </Route>
       </Switch>
     </Router>
   );
 }
-
