@@ -1,12 +1,14 @@
 import React from "react";
 
-import TopBar from "../Components/TopBar/TopBar.js";
+import TopBar from "../Components/TopBar/TopBar";
+
+import HomeHeader from "../Components/HomePage/HomeHeader";
 
 export default function HomePage() {
   return (
     <div className="app">
       <TopBar />
-      <h1> HomePage</h1>
+      <HomeHeader />
     </div>
   );
 }
