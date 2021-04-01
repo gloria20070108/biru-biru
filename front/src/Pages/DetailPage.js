@@ -1,4 +1,12 @@
 import React from "react";
-export default function DetailPage(){
-  return <div> Detail Page</div>;
+
+import TopBar from "../Components/TopBar/TopBar.js";
+
+export default function DetailPage() {
+  return (
+    <div className="app">
+      <TopBar />
+      <h1> DetailPage</h1>
+    </div>
+  );
 }
