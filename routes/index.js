@@ -1,6 +1,6 @@
-var express = require("express");
-var router = express.Router();
-var LocalStrategy = require("passport-local").Strategy;
+const express = require("express");
+const router = express.Router();
+const LocalStrategy = require("passport-local").Strategy;
 const MyDB = require("../db/MyDB");
 const passport = require("passport");
 
@@ -22,6 +22,11 @@ router.post("/register", (req, res, next) => {
       }
     });
   })(req, res, next);
+});
+
+router.post("/signout", (req, res) => {
+  req.logout();
+  res.redirect("/");
 });
 
 passport.use(
@@ -51,6 +56,7 @@ passport.use(
     }
   )
 );
+
 passport.serializeUser(function (user, done) {
   done(null, user.username);
 });
@@ -58,4 +64,5 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser((username, done) => {
   done(null, username);
 });
+
 module.exports = router;
