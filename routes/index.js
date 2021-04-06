@@ -1,9 +1,23 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
 const LocalStrategy = require("passport-local").Strategy;
 const MyDB = require("../db/MyDB");
 const passport = require("passport");
 
+const sendIndexFile = (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../front/build/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+};
+
+router.get("/home", sendIndexFile);
+router.get("/detail/*", sendIndexFile);
 
 router.post("/register", (req, res, next) => {
   console.log("backend signup functionc calling");

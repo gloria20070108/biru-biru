@@ -1,5 +1,48 @@
 .selector {
   display: inline-block;
-  margin-left: 1%;
+  margin-right: 1%;
   width: 24%;
+}
+
+.home-header {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  margin-left: 45px;
+  margin-right: 45px;
+  background: white;
+}
+
+.beers-container {
+  margin-top: 200px;
+}
+
+.beer {
+  display: inline-block;
+}
+
+.beer-img-container {
+  height: 400px;
+  width: 300px;
+  margin: 5px;
+  text-align: center;
+}
+
+.beer-img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.beer-text {
+  text-align: center;
+  color: black;
+  text-decoration: none;
+}
+
+.like-icon {
+  color: black;
+  font-size: 23px;
 }

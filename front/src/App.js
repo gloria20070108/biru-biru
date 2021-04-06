@@ -13,7 +13,7 @@ export default function App() {
         <Route path="/home">
           <HomePage />
         </Route>
-        <Route path="/detail">
+        <Route path="/detail/:id">
           <DetailPage />
         </Route>
         <Route path="/signup">

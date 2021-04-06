@@ -10,21 +10,22 @@ export default function HomeHeader() {
     { value: "abv+", label: "ABV - High to low" },
     { value: "abv-", label: "ABV - Low to High" },
   ];
-  let [selectedSortOption, setSelectedSortOption] = useState(sortOptions[0]);
+  const [selectedSortOption, setSelectedSortOption] = useState(sortOptions[0]);
 
-  let [styles, setStyles] = useState([{ value: "all", label: "All Styles" }]);
-  let [selectedStyle, setSelectedStyle] = useState(styles[0]);
+  const [styles, setStyles] = useState([{ value: "all", label: "All Styles" }]);
+  const [selectedStyle, setSelectedStyle] = useState(styles[0]);
 
-  let [countries, setCountries] = useState([
+  const [countries, setCountries] = useState([
     { value: "all", label: "All Countries" },
   ]);
-  let [selectedCountry, setSelectedCountry] = useState(countries[0]);
+  const [selectedCountry, setSelectedCountry] = useState(countries[0]);
 
-  let [flavors, setFlavors] = useState([
+  const [flavors, setFlavors] = useState([
     { value: "all", label: "All Flavors" },
   ]);
-  let [selectedFlavor, setSelectedFlavor] = useState(flavors[0]);
+  const [selectedFlavor, setSelectedFlavor] = useState(flavors[0]);
 
+  // TODO: change all the fetch functions below to call the real backend
   const fetchStyles = async () => {
     const res = [
       { value: "ale", label: "Ale" },
@@ -71,7 +72,7 @@ export default function HomeHeader() {
   }, []);
 
   return (
-    <div>
+    <div className="home-header">
       <h3>Cheers!</h3>
       <Select
         className="selector"

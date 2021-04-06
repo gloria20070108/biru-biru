@@ -1,12 +1,17 @@
 import React from "react";
 
-import TopBar from "../Components/TopBar/TopBar.js";
+import { useParams } from "react-router-dom";
+
+import TopBar from "../Components/TopBar/TopBar";
+import BeerDetail from "../Components/DetailPage/BeerDetail";
 
 export default function DetailPage() {
+  const { id } = useParams();
+
   return (
     <div className="app">
       <TopBar />
-      <h1> DetailPage</h1>
+      <BeerDetail id={id} />
     </div>
   );
 }
