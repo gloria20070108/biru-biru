@@ -71,6 +71,19 @@ router.get("/flavors", async (req, res) => {
   }
 });
 
+router.post("/addNewComment", async (req, res) => {
+  const beerId = req.body.beer_id;
+  const newComment = req.body.new_comment;
+  const user = req.user;
+
+  try {
+    await MyDB.addNewComment(beerId, newComment, user);
+    res.json({ message: "add new comment successfully!" });
+  } catch {
+    res.status(500).json({ error: err });
+  }
+});
+
 router.post("/register", (req, res, next) => {
   console.log("backend signup functionc calling");
   passport.authenticate("local-signup", (error, user) => {

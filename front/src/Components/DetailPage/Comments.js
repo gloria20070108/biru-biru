@@ -6,6 +6,7 @@ import SingleComment from "./SingleComment";
 
 export default function Comments({ id }) {
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   // TODO: have the fetch function work with real backend and pagination
   const featchCommentsByPage = () => {
@@ -27,13 +28,29 @@ export default function Comments({ id }) {
     featchCommentsByPage();
   }, []);
 
-  const submitComment = () => {
-    console.log("submitting comment:");
-    featchCommentsByPage();
+  const submitComment = async () => {
+    const res = await fetch("/addNewComment", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        beer_id: id,
+        new_comment: newComment,
+      }),
+    });
+
+    if (res.status === 200) {
+      resetComment();
+      featchCommentsByPage();
+    } else {
+      alert("Post new comment failed!");
+    }
   };
 
   const resetComment = () => {
-    console.log("canceling comment");
+    setNewComment("");
   };
 
   const pervPage = () => {
@@ -46,6 +63,10 @@ export default function Comments({ id }) {
     featchCommentsByPage();
   };
 
+  const handleNewCommentChange = (event) => {
+    setNewComment(event.target.value);
+  };
+
   return (
     <div>
       <div className="comments-header">Comments</div>
@@ -55,15 +76,19 @@ export default function Comments({ id }) {
           name="comment-input"
           cols="30"
           rows="3"
+          value={newComment}
+          onChange={handleNewCommentChange}
         ></textarea>
         <button
           className="btn btn-sm btn-success submit-btn"
+          disabled={newComment === ""}
           onClick={submitComment}
         >
           Submit
         </button>
         <button
           className="btn btn-sm btn-secondary cancel-btn"
+          disabled={newComment === ""}
           onClick={resetComment}
         >
           Cancel

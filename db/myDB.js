@@ -97,6 +97,26 @@ exports.getFlavors = () => {
   return deferred.promise;
 };
 
+exports.addNewComment = (beerId, newComment, user) => {
+  const deferred = q.defer();
+  MongoClient.connect(uri, (err, client) => {
+    const db = client.db("beers");
+    const collection = db.collection("comments");
+
+    const comment = {
+      beer_id: beerId,
+      comment: newComment,
+      user: user,
+    };
+
+    const result = collection.insertOne(comment);
+    deferred.resolve(result);
+    client.close();
+  });
+
+  return deferred.promise;
+};
+
 exports.localReg = (username, password) => {
   const deferred = q.defer();
 
