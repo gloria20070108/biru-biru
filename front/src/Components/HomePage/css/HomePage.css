@@ -42,7 +42,8 @@
   text-decoration: none;
 }
 
-.like-icon {
+.like-icon,
+.dislike-icon {
   color: black;
   font-size: 23px;
 }

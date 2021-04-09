@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+
 import Select from "react-select";
 
 import "./css/HomePage.css";
 
-export default function HomeHeader() {
+export default function HomeHeader(props) {
   const sortOptions = [
-    { value: "like+", label: "Most liked" },
-    { value: "dislike+", label: "Most hated" },
-    { value: "abv+", label: "ABV - High to low" },
-    { value: "abv-", label: "ABV - Low to High" },
+    { value: "like+", label: "Most Liked" },
+    { value: "dislike+", label: "Most Hated" },
+    { value: "abv-", label: "ABV - High to Low" },
+    { value: "abv+", label: "ABV - Low to High" },
   ];
   const [selectedSortOption, setSelectedSortOption] = useState(sortOptions[0]);
 
@@ -25,44 +27,58 @@ export default function HomeHeader() {
   ]);
   const [selectedFlavor, setSelectedFlavor] = useState(flavors[0]);
 
-  // TODO: change all the fetch functions below to call the real backend
-  const fetchStyles = async () => {
-    const res = [
-      { value: "ale", label: "Ale" },
-      { value: "ipa", label: "IPA" },
-      { value: "lager", label: "Lager" },
-    ];
+  const getOptions = (data) => {
+    const res = [];
+    for (let i = 0; i < data.length; i++) {
+      const name = data[i].name;
+      const option = {
+        value: name,
+        label: name.charAt(0).toUpperCase() + name.slice(1),
+      };
 
-    console.log("Got Styles", res);
-    res.unshift(selectedStyle);
-    setStyles(res);
-    setSelectedStyle(styles[0]);
+      res.push(option);
+    }
+
+    return res;
+  };
+
+  const fetchStyles = async () => {
+    const res = await fetch("beer-styles");
+
+    if (res.status === 200) {
+      const allStyles = getOptions(await res.json());
+      allStyles.unshift(selectedStyle);
+      setStyles(allStyles);
+      setSelectedStyle(styles[0]);
+    } else {
+      console.error("Can't get beer styles");
+    }
   };
 
   const fetchCountries = async () => {
-    const res = [
-      { value: "belgium", label: "Belgium" },
-      { value: "japan", label: "Japan" },
-      { value: "usa", label: "USA" },
-    ];
+    const res = await fetch("countries");
 
-    console.log("Got Countries", res);
-    res.unshift(selectedCountry);
-    setCountries(res);
-    setSelectedCountry(countries[0]);
+    if (res.status === 200) {
+      const allCountries = getOptions(await res.json());
+      allCountries.unshift(selectedCountry);
+      setCountries(allCountries);
+      setSelectedCountry(countries[0]);
+    } else {
+      console.error("Can't get countries");
+    }
   };
 
   const fetchFlavors = async () => {
-    const res = [
-      { value: "fruit", label: "Fruit" },
-      { value: "malt", label: "Malt" },
-      { value: "hop", label: "Hop" },
-    ];
+    const res = await fetch("flavors");
 
-    console.log("Got Flavors", res);
-    res.unshift(selectedFlavor);
-    setFlavors(res);
-    setSelectedFlavor(flavors[0]);
+    if (res.status === 200) {
+      const allFlavors = getOptions(await res.json());
+      allFlavors.unshift(selectedFlavor);
+      setFlavors(allFlavors);
+      setSelectedFlavor(flavors[0]);
+    } else {
+      console.error("Can't get flavors");
+    }
   };
 
   useEffect(() => {
@@ -77,27 +93,71 @@ export default function HomeHeader() {
       <Select
         className="selector"
         options={styles}
-        onChange={(value) => setSelectedStyle(value)}
+        onChange={(value) => {
+          setSelectedStyle(value);
+          if (props.onChange) {
+            props.onChange({
+              style: value.value,
+              country: selectedCountry.value,
+              flavor: selectedFlavor.value,
+              sortOption: selectedSortOption.value,
+            });
+          }
+        }}
         defaultValue={selectedStyle}
       />
       <Select
         className="selector"
         options={countries}
-        onChange={(value) => setSelectedCountry(value)}
+        onChange={(value) => {
+          setSelectedCountry(value);
+          if (props.onChange) {
+            props.onChange({
+              style: selectedStyle.value,
+              country: value.value,
+              flavor: selectedFlavor.value,
+              sortOption: selectedSortOption.value,
+            });
+          }
+        }}
         defaultValue={selectedCountry}
       />
       <Select
         className="selector"
         options={flavors}
-        onChange={(value) => setSelectedFlavor(value)}
+        onChange={(value) => {
+          setSelectedFlavor(value);
+          if (props.onChange) {
+            props.onChange({
+              style: selectedStyle.value,
+              country: selectedCountry.value,
+              flavor: value.value,
+              sortOption: selectedSortOption.value,
+            });
+          }
+        }}
         defaultValue={selectedFlavor}
       />
       <Select
         className="selector"
         options={sortOptions}
-        onChange={(value) => setSelectedSortOption(value)}
+        onChange={(value) => {
+          setSelectedSortOption(value);
+          if (props.onChange) {
+            props.onChange({
+              style: selectedStyle.value,
+              country: selectedCountry.value,
+              flavor: selectedFlavor.value,
+              sortOption: value.value,
+            });
+          }
+        }}
         defaultValue={selectedSortOption}
       />
     </div>
   );
 }
+
+HomeHeader.propTypes = {
+  onChange: PropTypes.func,
+};

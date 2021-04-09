@@ -8,43 +8,40 @@ import BeersContainer from "../Components/HomePage/BeersContainer";
 export default function HomePage() {
   const [beers, setBeers] = useState([]);
 
-  // TODO: make fetch function work with the real backend
-  const fetchBeers = async () => {
-    const res = [
-      { id: "beer1", name: "Tsarina Esra", img: "tsarina-esra.jpg", like: 5 },
-      {
-        id: "beer2",
-        name: "Watermelon Lager",
-        img: "watermelon-lager.jpg",
-        like: 6,
-      },
-      { id: "beer1", name: "Tsarina Esra", img: "tsarina-esra.jpg", like: 5 },
-      {
-        id: "beer2",
-        name: "Watermelon Lager",
-        img: "watermelon-lager.jpg",
-        like: 6,
-      },
-      { id: "beer1", name: "Tsarina Esra", img: "tsarina-esra.jpg", like: 5 },
-      {
-        id: "beer2",
-        name: "Watermelon Lager",
-        img: "watermelon-lager.jpg",
-        like: 6,
-      },
-    ];
+  const fetchBeers = async (options) => {
+    let params = "";
+    for (const [key, value] of Object.entries(options)) {
+      params += `${key}=${value}&`;
+    }
 
-    setBeers(res);
+    const url = "/beers?" + params.slice(0, -1);
+    const res = await fetch(url);
+
+    if (res.status === 200) {
+      const allBeers = await res.json();
+      setBeers(allBeers);
+    } else {
+      console.error("Can not get beers.");
+    }
   };
 
   useEffect(() => {
-    fetchBeers();
+    fetchBeers({
+      styles: "all",
+      countries: "all",
+      flavors: "all",
+      sortOption: "liked+",
+    });
   }, []);
+
+  const handleSelectChanges = (selectedOptions) => {
+    fetchBeers(selectedOptions);
+  };
 
   return (
     <div className="app">
       <TopBar />
-      <HomeHeader />
+      <HomeHeader onChange={handleSelectChanges} />
       <BeersContainer beers={beers} />
     </div>
   );

@@ -19,6 +19,58 @@ const sendIndexFile = (req, res) => {
 router.get("/home", sendIndexFile);
 router.get("/detail/*", sendIndexFile);
 
+router.get("/beers", async (req, res) => {
+  const params = req.query;
+  if (params.id) {
+    //get beer based on id, used for detail page.
+    try {
+      const result = await MyDB.getBeerById(params.id);
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  } else {
+    // get beer based on style/country/flavor and sortOption, used for home page.
+    const style = params.style === "all" ? null : params.style;
+    const country = params.country === "all" ? null : params.country;
+    const flavor = params.flavor === "all" ? null : params.flavor;
+    const sortOption = params.sortOption;
+    try {
+      const result = await MyDB.getBeers(style, country, flavor, sortOption);
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  }
+});
+
+router.get("/beer-styles", async (req, res) => {
+  try {
+    const result = await MyDB.getStyles();
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
+router.get("/countries", async (req, res) => {
+  try {
+    const result = await MyDB.getCountries();
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
+router.get("/flavors", async (req, res) => {
+  try {
+    const result = await MyDB.getFlavors();
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
 router.post("/register", (req, res, next) => {
   console.log("backend signup functionc calling");
   passport.authenticate("local-signup", (error, user) => {

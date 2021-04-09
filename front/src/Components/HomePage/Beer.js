@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export default function Beer({ beer }) {
   return (
     <div className="beer">
-      <Link to={"/detail/" + beer.id} state={beer}>
+      <Link to={"/detail/" + beer._id} state={beer}>
         <div className="beer-img-container">
           <img
             className="beer-img"
@@ -17,7 +17,8 @@ export default function Beer({ beer }) {
         </div>
       </Link>
       <div className="beer-text">
-        {beer.name} - <i class="far fa-thumbs-up like-icon"></i> {beer.like}
+        {beer.name} - <i class="far fa-thumbs-up like-icon"></i> {beer.like}{" "}
+        <i class="far fa-thumbs-down dislike-icon"></i> {beer.dislike}
       </div>
     </div>
   );

@@ -10,35 +10,20 @@ export default function BeerDetail({ id }) {
 
   // TODO: make fetch function work with the real backend
   const fetchBeerById = async (id) => {
-    const idx = id === "beer1" ? 0 : 1;
+    const url = `/beers?id=${id}`;
+    const res = await fetch(url);
 
-    const res = [
-      {
-        id: id,
-        name: "Tsarina Esra",
-        img: "tsarina-esra.jpg",
-        style: "Porter",
-        abv: 11,
-        brewery: "Brouwerij De Molen",
-        country: "Netherland",
-        flavors: ["Malt", "Chocolate", "Bittness", "Vanilla"],
-        like: 5,
-        dislike: 0,
-      },
-      {
-        id: id,
-        name: "Watermelon Lager",
-        img: "watermelon-lager.jpg",
-        style: "Lager",
-        abv: 5,
-        brewery: "Hokkaido Brewing Company",
-        country: "Japan",
-        flavors: ["Fruit"],
-        like: 6,
-        dislike: 2,
-      },
-    ];
-    setBeer(res[idx]);
+    if (res.status === 200) {
+      const beerInfo = await res.json();
+
+      if (beerInfo) {
+        setBeer(beerInfo);
+      } else {
+        console.error("Can not get beer by id " + id + "!");
+      }
+    } else {
+      console.error("Can not get beer by id " + id + "!");
+    }
   };
 
   useEffect(() => {
