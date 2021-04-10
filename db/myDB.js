@@ -150,6 +150,44 @@ function myDB() {
     }
   };
 
+  myDB.addLike = async (id) => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("beers");
+      const result = await collection.update(
+        { _id: ObjectId(id) },
+        { $inc: { like: 1 } }
+      );
+      return result;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.addDislike = async (id) => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("beers");
+      const result = await collection.update(
+        { _id: ObjectId(id) },
+        { $inc: { dislike: 1 } }
+      );
+      return result;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
   myDB.addNewComment = async (beerId, newComment, user) => {
     let client;
     try {

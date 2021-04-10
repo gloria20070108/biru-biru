@@ -7,8 +7,8 @@ import "./css/HomePage.css";
 
 export default function HomeHeader(props) {
   const sortOptions = [
-    { value: "like+", label: "Most Liked" },
-    { value: "dislike+", label: "Most Hated" },
+    { value: "like-", label: "Most Liked" },
+    { value: "dislike-", label: "Most Hated" },
     { value: "abv-", label: "ABV - High to Low" },
     { value: "abv+", label: "ABV - Low to High" },
   ];

@@ -30,19 +30,42 @@ export default function BeerDetail({ id }) {
     fetchBeerById(id);
   }, []);
 
-  // TODO: improve the like/dislike logic here
-  // just like youtube
-  // a user should only be allowed to like or dislike once for one beer.
-  // if a user clicks like, it should cancel the existing dislike if any, vice versa.
-  // optional feature
-  const increaseLike = () => {
-    console.log("like++");
-    fetchBeerById(id);
+  const clickLike = async () => {
+    const res = await fetch("/addLike", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+
+    if (res.status === 200) {
+      fetchBeerById(id);
+    } else {
+      alert("Add like failed!");
+    }
   };
 
-  const increaseDislike = () => {
-    console.log("dislike++");
-    fetchBeerById(id);
+  const clickDislike = async () => {
+    const res = await fetch("/addDislike", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+
+    if (res.status === 200) {
+      fetchBeerById(id);
+    } else {
+      alert("Add dislike failed!");
+    }
   };
 
   if (!beer) {
@@ -63,7 +86,9 @@ export default function BeerDetail({ id }) {
             <div className="beer-detail-info-container">
               <div className="beer-detail-info">
                 <div className="beer-detail-label">Style:</div>
-                <div className="beer-detail-value">{beer.style}</div>
+                <div className="beer-detail-value">
+                  {beer.style.charAt(0).toUpperCase() + beer.style.slice(1)}
+                </div>
               </div>
               <div className="beer-detail-info">
                 <div className="beer-detail-label">ABV:</div>
@@ -88,7 +113,7 @@ export default function BeerDetail({ id }) {
                 <div className="beer-detail-value">
                   <i
                     class="far fa-thumbs-up beer-detail-like-icon"
-                    onClick={increaseLike}
+                    onClick={clickLike}
                   ></i>{" "}
                   {beer.like}
                 </div>
@@ -98,7 +123,7 @@ export default function BeerDetail({ id }) {
                 <div className="beer-detail-value">
                   <i
                     class="far fa-thumbs-down beer-detail-dislike-icon"
-                    onClick={increaseDislike}
+                    onClick={clickDislike}
                   ></i>{" "}
                   {beer.dislike}
                 </div>

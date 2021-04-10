@@ -30,7 +30,7 @@ export default function HomePage() {
       styles: "all",
       countries: "all",
       flavors: "all",
-      sortOption: "liked+",
+      sortOption: "like-",
     });
   }, []);
 

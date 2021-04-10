@@ -93,6 +93,26 @@ router.get("/flavors", async (req, res) => {
   }
 });
 
+router.post("/addLike", async (req, res) => {
+  const id = req.body.id;
+  try {
+    await MyDB.addLike(id);
+    res.json({ message: "add like successfully!" });
+  } catch {
+    res.status(500).json({ error: err });
+  }
+});
+
+router.post("/addDislike", async (req, res) => {
+  const id = req.body.id;
+  try {
+    await MyDB.addDislike(id);
+    res.json({ message: "add dislike successfully!" });
+  } catch {
+    res.status(500).json({ error: err });
+  }
+});
+
 router.post("/addNewComment", async (req, res) => {
   const beerId = req.body.beer_id;
   const newComment = req.body.new_comment;
