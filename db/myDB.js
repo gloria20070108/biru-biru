@@ -194,8 +194,8 @@ function myDB() {
       client = new MongoClient(uri, { useUnifiedTopology: true });
       await client.connect();
       const db = client.db(usersDbName);
-      const userCol = db.collection("localUsers");
-      let res = await userCol.insertOne(user);
+      const collection = db.collection("localUsers");
+      let res = await collection.insertOne(user);
       return res;
     } catch (error) {
       return error;
