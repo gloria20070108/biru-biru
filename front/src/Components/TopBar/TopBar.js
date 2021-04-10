@@ -4,7 +4,17 @@ import { Modal } from "react-bootstrap";
 import "./css/TopBar.css";
 
 export default function TopBar() {
+  const [user, setUser] = useState(null);
   const [showModal, setModal] = useState(false);
+  const fetchUser = async () => {
+    const res = await (await fetch("getUser")).json();
+    console.log("fetch user result", res);
+    setUser(res.user);
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <div>
@@ -38,12 +48,15 @@ export default function TopBar() {
         <nav className="navbar navbar-expand-md navbar-light fixed-top">
           <div className="container-fluid">
             <span className="navbar-brand">BiruBiru~</span>
-            <button
-              className="btn btn-outline-success"
-              onClick={() => setModal(true)}
-            >
-              Signout
-            </button>
+            <div class="to-right">
+              <div>{<div>Hello {user}</div>}</div>
+              <button
+                className="btn btn-outline-success"
+                onClick={() => setModal(true)}
+              >
+                Signout
+              </button>
+            </div>
           </div>
         </nav>
       </header>
