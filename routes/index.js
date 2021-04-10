@@ -44,6 +44,28 @@ router.get("/beers", async (req, res) => {
   }
 });
 
+router.get("/comments_total", async (req, res) => {
+  const id = req.query.id;
+  try {
+    const result = await MyDB.getCommentsTotal(id);
+    res.json({ total: result });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
+router.get("/comments", async (req, res) => {
+  const id = req.query.id;
+  const start = parseInt(req.query.start);
+  const pageSize = parseInt(req.query.page_size);
+  try {
+    const result = await MyDB.getComments(id, start, pageSize);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
 router.get("/beer-styles", async (req, res) => {
   try {
     const result = await MyDB.getStyles();

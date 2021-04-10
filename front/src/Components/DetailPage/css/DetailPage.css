@@ -60,9 +60,14 @@
   cursor: pointer;
 }
 
+.beer-detail-dislike-icon {
+  vertical-align: bottom;
+}
+
 .comment-input-textarea {
   width: 100%;
   resize: none;
+  padding: 5px;
 }
 
 .cancel-btn,
@@ -78,6 +83,11 @@
 .pagination-icon {
   margin: 5px;
   cursor: pointer;
+}
+
+.pagination-icon-disabled {
+  margin: 5px;
+  cursor: not-allowed;
 }
 
 .single-comment {

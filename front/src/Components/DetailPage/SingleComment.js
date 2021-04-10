@@ -8,7 +8,7 @@ export default function SingleComment({ comment }) {
       <div className="comment-user">
         <i class="far fa-user user-icon"></i> - {comment.user}
       </div>
-      <div className="comment-text">{comment.text}</div>
+      <div className="comment-text">{comment.comment}</div>
     </div>
   );
 }

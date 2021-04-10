@@ -6,3 +6,12 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.sign-out-btn {
+  display: inline-block;
+}
+
+.greeting {
+  display: inline-block;
+  margin-right: 10px;
+}

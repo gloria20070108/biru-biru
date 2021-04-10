@@ -1,206 +1,199 @@
 const { MongoClient } = require("mongodb");
 const dotenv = require("dotenv");
-const q = require("q");
 const ObjectId = require("mongodb").ObjectID;
 dotenv.config();
-const uri = process.env.MONGO_URI;
 
-exports.getBeers = (style, country, flavor, sortOption) => {
-  const deferred = q.defer();
-
-  const params = {};
-  if (style) {
-    params.style = style;
-  }
-
-  if (country) {
-    params.country = country;
-  }
-
-  if (flavor) {
-    params.flavors = flavor;
-  }
-
-  const sortParam = {};
-  if (sortOption.endsWith("-")) {
-    sortParam[sortOption.slice(0, -1)] = -1;
-  } else {
-    // ends with "+"
-    sortParam[sortOption.slice(0, -1)] = 1;
-  }
-  sortParam.name = 1;
-  MongoClient.connect(uri, (err, client) => {
-    const db = client.db("beers");
-    const collection = db.collection("beers");
-    const result = collection.find(params).sort(sortParam).toArray();
-    deferred.resolve(result);
-    client.close();
-  });
-
-  return deferred.promise;
-};
-
-exports.getBeerById = (id) => {
-  const deferred = q.defer();
-
-  MongoClient.connect(uri, (err, client) => {
-    const db = client.db("beers");
-    const collection = db.collection("beers");
-    const result = collection.findOne({ _id: ObjectId(id) });
-    deferred.resolve(result);
-    client.close();
-  });
-
-  return deferred.promise;
-};
-
-exports.getStyles = () => {
-  const deferred = q.defer();
-
-  MongoClient.connect(uri, (err, client) => {
-    const db = client.db("beers");
-    const collection = db.collection("styles");
-    const result = collection.find().sort({ name: 1 }).toArray();
-    deferred.resolve(result);
-    client.close();
-  });
-
-  return deferred.promise;
-};
-
-exports.getCountries = () => {
-  const deferred = q.defer();
-
-  MongoClient.connect(uri, (err, client) => {
-    const db = client.db("beers");
-    const collection = db.collection("countries");
-    const result = collection.find().sort({ name: 1 }).toArray();
-    deferred.resolve(result);
-    client.close();
-  });
-
-  return deferred.promise;
-};
-
-exports.getFlavors = () => {
-  const deferred = q.defer();
-
-  MongoClient.connect(uri, (err, client) => {
-    const db = client.db("beers");
-    const collection = db.collection("flavors");
-    const result = collection.find().sort({ name: 1 }).toArray();
-    deferred.resolve(result);
-    client.close();
-  });
-
-  return deferred.promise;
-};
-
-exports.addNewComment = (beerId, newComment, user) => {
-  const deferred = q.defer();
-  MongoClient.connect(uri, (err, client) => {
-    const db = client.db("beers");
-    const collection = db.collection("comments");
-
-    const comment = {
-      beer_id: beerId,
-      comment: newComment,
-      user: user,
-    };
-
-    const result = collection.insertOne(comment);
-    deferred.resolve(result);
-    client.close();
-  });
-
-  return deferred.promise;
-};
-
-exports.localReg = (username, password) => {
-  const deferred = q.defer();
-
-  MongoClient.connect(uri, (err, client) => {
-    const db = client.db("users");
-    const collection = db.collection("localUsers");
-
-    //check if username is already assigned in our database
-    collection.findOne({ username: username }).then((result) => {
-      if (null != result) {
-        console.log("USERNAME ALREADY EXISTS:", result.username);
-        deferred.resolve(false); // username exists
-      } else {
-        const user = {
-          username: username,
-          password: password,
-        };
-
-        console.log("CREATING USER:", username);
-
-        collection.insertOne(user).then(() => {
-          client.close();
-          deferred.resolve(user);
-        });
-      }
-    });
-  });
-
-  return deferred.promise;
-};
-
-exports.localAuth = (username, password) => {
-  const deferred = q.defer();
-
-  MongoClient.connect(uri, (err, client) => {
-    const db = client.db("users");
-    const collection = db.collection("localUsers");
-
-    collection.findOne({ username: username }).then((result) => {
-      if (null == result) {
-        console.log("USER NOT FOUND:", username);
-
-        deferred.resolve(false);
-      } else {
-        console.log("FOUND USER: " + result.username);
-
-        if (result.password === password) {
-          deferred.resolve(result);
-        } else {
-          console.log("AUTHENTICATION FAILED");
-          deferred.resolve(false);
-        }
-      }
-
-      client.close();
-    });
-  });
-
-  return deferred.promise;
-};
 function myDB() {
   const myDB = {};
-  const userdbName = "users";
+  const usersDbName = "users";
+  const beersDbName = "beers";
   const uri = process.env.MONGO_URI;
-  let client;
 
-  myDB.findByUsername = async (username) => {
+  myDB.getBeers = async (style, country, flavor, sortOption) => {
+    let client;
+    const params = {};
+    if (style) {
+      params.style = style;
+    }
+
+    if (country) {
+      params.country = country;
+    }
+
+    if (flavor) {
+      params.flavors = flavor;
+    }
+
+    const sortParam = {};
+    if (sortOption.endsWith("-")) {
+      sortParam[sortOption.slice(0, -1)] = -1;
+    } else {
+      // ends with "+"
+      sortParam[sortOption.slice(0, -1)] = 1;
+    }
+    sortParam.name = 1;
+
     try {
       client = new MongoClient(uri, { useUnifiedTopology: true });
       await client.connect();
-      const db = client.db(userdbName);
+      const db = client.db(beersDbName);
+      const collection = db.collection("beers");
+      const result = await collection.find(params).sort(sortParam).toArray();
+      return result;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.getBeerById = async (id) => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("beers");
+      const result = await collection.findOne({ _id: ObjectId(id) });
+      return result;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.getStyles = async () => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("styles");
+      const result = await collection.find().sort({ name: 1 }).toArray();
+      return result;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.getCountries = async () => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("countries");
+      const result = await collection.find().sort({ name: 1 }).toArray();
+      return result;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.getFlavors = async () => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("flavors");
+      const result = await collection.find().sort({ name: 1 }).toArray();
+      return result;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.getCommentsTotal = async (beerId) => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("comments");
+      const result = await collection
+        .find({ beer_id: ObjectId(beerId) })
+        .count();
+      return result;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.getComments = async (beerId, start, pageSize) => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("comments");
+      const result = await collection
+        .find({ beer_id: ObjectId(beerId) })
+        .sort({ $natural: -1 })
+        .skip(start)
+        .limit(pageSize)
+        .toArray();
+      return result;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.addNewComment = async (beerId, newComment, user) => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("comments");
+      const comment = {
+        beer_id: ObjectId(beerId),
+        comment: newComment,
+        user: user,
+      };
+      const result = await collection.insertOne(comment);
+      return result;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.findByUsername = async (username) => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(usersDbName);
       const collection = db.collection("localUsers");
       let user = await collection.findOne({ username: username });
       console.log("db result", user);
       return user;
+    } catch (error) {
+      return error;
     } finally {
       client.close();
     }
   };
 
   myDB.storeUser = async (user) => {
+    let client;
     try {
       client = new MongoClient(uri, { useUnifiedTopology: true });
       await client.connect();
-      const db = client.db(userdbName);
+      const db = client.db(usersDbName);
       const userCol = db.collection("localUsers");
       let res = await userCol.insertOne(user);
       return res;
@@ -210,6 +203,7 @@ function myDB() {
       client.close();
     }
   };
+
   return myDB;
 }
 module.exports = myDB();

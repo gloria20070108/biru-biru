@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 
 import "./css/TopBar.css";
@@ -7,7 +7,7 @@ export default function TopBar() {
   const [user, setUser] = useState(null);
   const [showModal, setModal] = useState(false);
   const fetchUser = async () => {
-    const res = await (await fetch("getUser")).json();
+    const res = await (await fetch("/getUser")).json();
     console.log("fetch user result", res);
     setUser(res.user);
   };
@@ -49,9 +49,9 @@ export default function TopBar() {
           <div className="container-fluid">
             <span className="navbar-brand">BiruBiru~</span>
             <div class="to-right">
-              <div>{<div>Hello {user}</div>}</div>
+              <div className="greeting">Hello {user}</div>
               <button
-                className="btn btn-outline-success"
+                className="btn btn-outline-success sign-out-btn"
                 onClick={() => setModal(true)}
               >
                 Signout

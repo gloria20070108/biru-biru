@@ -25,9 +25,9 @@
 }
 
 .beer-img-container {
-  height: 400px;
-  width: 300px;
-  margin: 5px;
+  height: 480px;
+  width: 360px;
+  margin: 10px;
   text-align: center;
 }
 
@@ -37,6 +37,7 @@
 }
 
 .beer-text {
+  font-size: 18px;
   text-align: center;
   color: black;
   text-decoration: none;
@@ -46,4 +47,8 @@
 .dislike-icon {
   color: black;
   font-size: 23px;
+}
+
+.dislike-icon {
+  vertical-align: bottom;
 }
