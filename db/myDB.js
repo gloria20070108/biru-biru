@@ -1,8 +1,7 @@
-const MongoClient = require("mongodb").MongoClient;
+const { MongoClient } = require("mongodb");
 const dotenv = require("dotenv");
 const q = require("q");
 const ObjectId = require("mongodb").ObjectID;
-
 dotenv.config();
 const uri = process.env.MONGO_URI;
 
@@ -177,3 +176,40 @@ exports.localAuth = (username, password) => {
 
   return deferred.promise;
 };
+function myDB() {
+  const myDB = {};
+  const userdbName = "users";
+  const uri = process.env.MONGO_URI;
+  let client;
+
+  myDB.findByUsername = async (username) => {
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(userdbName);
+      const collection = db.collection("localUsers");
+      let user = await collection.findOne({ username: username });
+      console.log("db result", user);
+      return user;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.storeUser = async (user) => {
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(userdbName);
+      const userCol = db.collection("localUsers");
+      let res = await userCol.insertOne(user);
+      return res;
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+  return myDB;
+}
+module.exports = myDB();
