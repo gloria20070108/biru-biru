@@ -58,6 +58,7 @@ function MyAuth() {
   myAuth.authRouter = () => {
     const express = require("express");
     const router = express.Router();
+
     router.post(
       "/login",
       passport.authenticate("local", { failureRedirect: "/signin" }),
@@ -65,17 +66,31 @@ function MyAuth() {
         res.redirect("/home");
       }
     );
+
     router.get("/logout", function (req, res) {
       req.logout();
       res.redirect("/");
     });
+
     router.get("/getUser", (req, res) => {
       console.log("get user", req.user);
-      res.send({ user: req.user ? req.user.username : null });
       if (req.user) {
         res.json(req.user);
       }
     });
+
+    router.post("/register", async function (req, res) {
+      let result = await MyDB.findByUsername(req.body.username);
+      if (result) {
+        res.json({ error: "User exists" });
+      } else {
+        result = await MyDB.registerUser(req.body.username, req.body.password);
+        console.log("register user result", result);
+      }
+      console.log("register log", res);
+      res.redirect("/home");
+    });
+
     return router;
   };
   return myAuth;
