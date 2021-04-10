@@ -1,6 +1,7 @@
 const passport = require("passport");
 const Strategy = require("passport-local").Strategy;
 const MyDB = require("../db/MyDB");
+const path = require("path");
 
 function MyAuth() {
   const myAuth = {};
@@ -69,14 +70,12 @@ function MyAuth() {
 
     router.get("/logout", function (req, res) {
       req.logout();
-      res.redirect("/");
+      res.redirect("/signin");
     });
 
     router.get("/getUser", (req, res) => {
       console.log("get user", req.user);
-      if (req.user) {
-        res.json(req.user);
-      }
+      res.json(req.user);
     });
 
     router.post("/register", async function (req, res) {
@@ -87,9 +86,11 @@ function MyAuth() {
         result = await MyDB.registerUser(req.body.username, req.body.password);
         console.log("register user result", result);
       }
-      console.log("register log", res);
       res.redirect("/home");
     });
+    router.get("*", (req, res) =>
+      res.sendFile(path.resolve("front", "build", "index.html"))
+    );
 
     return router;
   };
