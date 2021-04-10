@@ -1,8 +1,4 @@
-import React, { useState } from "react";
-
 const LoginFormComponent = () => {
-  const [loggIn, setLoggedIn] = useState(false);
-
   return (
     <form action="/login" method="post">
       <div>

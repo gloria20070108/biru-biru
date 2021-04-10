@@ -9,7 +9,7 @@ export default function TopBar() {
   const fetchUser = async () => {
     const res = await (await fetch("/getUser")).json();
     console.log("fetch user result", res);
-    setUser(res.user);
+    setUser(res);
   };
 
   useEffect(() => {
