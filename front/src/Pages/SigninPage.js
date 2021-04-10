@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import LoginFormComponent from "../Components/LoginFormComponent.js";
 
-export default function SigninPage(){
-  return(
-    <div className="app">
-      <h1> Signin Page</h1>
-    </div>);
+export default function SigninPage() {
+  return (
+    <div>
+      <LoginFormComponent />
+    </div>
+  );
 }
