@@ -1,23 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const path = require("path");
-const LocalStrategy = require("passport-local").Strategy;
 const MyDB = require("../db/MyDB");
-const passport = require("passport");
-
-const sendIndexFile = (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "../front/build/index.html"),
-    function (err) {
-      if (err) {
-        res.status(500).send(err);
-      }
-    }
-  );
-};
-
-router.get("/home", sendIndexFile);
-router.get("/detail/*", sendIndexFile);
 
 router.get("/beers", async (req, res) => {
   const params = req.query;
@@ -116,7 +99,7 @@ router.post("/addDislike", async (req, res) => {
 router.post("/addNewComment", async (req, res) => {
   const beerId = req.body.beer_id;
   const newComment = req.body.new_comment;
-  const user = req.user;
+  const user = req.user.username;
 
   try {
     await MyDB.addNewComment(beerId, newComment, user);
@@ -124,11 +107,6 @@ router.post("/addNewComment", async (req, res) => {
   } catch {
     res.status(500).json({ error: err });
   }
-});
-
-router.post("/signout", (req, res) => {
-  req.logout();
-  res.redirect("/");
 });
 
 module.exports = router;

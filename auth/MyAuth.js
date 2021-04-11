@@ -69,15 +69,16 @@ function MyAuth() {
       }
     );
 
-    router.get("/logout", function (req, res) {
+    router.post("/logout", function (req, res) {
       req.logout();
       res.redirect("/signin");
     });
 
     router.get("/getUser", (req, res) => {
-      //console.log("get user", req.username);
       if (req.user.username != null) {
         res.json(req.user.username);
+      } else {
+        res.status(404).json({ error: "can't find user." });
       }
     });
 
@@ -91,12 +92,38 @@ function MyAuth() {
       }
       res.redirect("/home");
     });
-    router.get("/signin", (req, res) =>
+
+    router.get("/", (req, res) =>
       res.sendFile(path.resolve("front", "build", "index.html"))
     );
+
+    router.get("/home", isLoggedIn, (req, res) =>
+      res.sendFile(path.resolve("front", "build", "index.html"))
+    );
+
+    router.get("/detail/*", isLoggedIn, (req, res) =>
+      res.sendFile(path.resolve("front", "build", "index.html"))
+    );
+
+    router.get("/signin", (req, res) => {
+      if (req.isAuthenticated()) {
+        res.redirect("/home");
+      }
+      res.sendFile(path.resolve("front", "build", "index.html"));
+    });
+
     router.get("/signup", (req, res) =>
       res.sendFile(path.resolve("front", "build", "index.html"))
     );
+
+    function isLoggedIn(req, res, next) {
+      if (req.isAuthenticated()) {
+        return next();
+      } else {
+        return res.redirect("/signin");
+      }
+    }
+
     return router;
   };
   return myAuth;

@@ -1,15 +1,26 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
-import HomePage from "./Pages/HomePage.js";
-import DetailPage from "./Pages/DetailPage.js";
-import SigninPage from "./Pages/SigninPage.js";
-import SignupPage from "./Pages/SignupPage.js";
+import Navigation from "./Components/Navigation";
+import HomePage from "./Pages/HomePage";
+import DetailPage from "./Pages/DetailPage";
+import SigninPage from "./Pages/SigninPage";
+import SignupPage from "./Pages/SignupPage";
 
 export default function App() {
+  const [isLogin, setIsLogin] = useState(false);
+
   return (
     <Router>
       <Switch>
+        <Route exact path="/">
+          <Navigation />
+        </Route>
         <Route path="/home">
           <HomePage />
         </Route>

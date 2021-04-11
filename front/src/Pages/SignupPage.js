@@ -5,9 +5,6 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
 
   async function registerUsers() {
-    console.log("calling send data function");
-    console.log("username", { username });
-    console.log("password", { password });
     const response = await fetch("./register", {
       method: "POST",
       headers: {
@@ -28,7 +25,6 @@ export default function SignupPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("calling submit function");
     registerUsers();
   };
 
@@ -47,7 +43,7 @@ export default function SignupPage() {
             setUsername(e.target.value);
           }}
         />
-        <label htmlFor="password">password</label>
+        <label htmlFor="password">Password</label>
         <input
           type="password"
           id="sign-up-password"

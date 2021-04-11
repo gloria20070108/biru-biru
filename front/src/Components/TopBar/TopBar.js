@@ -4,7 +4,7 @@ import { Modal } from "react-bootstrap";
 import "./css/TopBar.css";
 
 export default function TopBar() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   const [showModal, setModal] = useState(false);
   const fetchUser = async () => {
     const res = await (await fetch("/getUser")).json();
@@ -35,7 +35,7 @@ export default function TopBar() {
             <div className="signout-msg">
               Are you sure you want to sign out?
             </div>
-            <form action="/signout" method="post">
+            <form action="/logout" method="post">
               <button
                 className="w-100 btn btn-lg btn-primary sign-out-btn"
                 type="submit"
