@@ -75,7 +75,7 @@ function MyAuth() {
     });
 
     router.get("/getUser", (req, res) => {
-      if (req.user.username != null) {
+      if (req.user && req.user.username != null) {
         res.json(req.user.username);
       } else {
         res.status(404).json({ error: "can't find user." });
