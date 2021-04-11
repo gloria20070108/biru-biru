@@ -91,7 +91,10 @@ function MyAuth() {
       }
       res.redirect("/home");
     });
-    router.get("*", (req, res) =>
+    router.get("/signin", (req, res) =>
+      res.sendFile(path.resolve("front", "build", "index.html"))
+    );
+    router.get("/signup", (req, res) =>
       res.sendFile(path.resolve("front", "build", "index.html"))
     );
     return router;
