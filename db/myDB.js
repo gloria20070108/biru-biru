@@ -226,13 +226,17 @@ function myDB() {
     }
   };
 
-  myDB.storeUser = async (user) => {
+  myDB.registerUser = async (username, password) => {
     let client;
     try {
       client = new MongoClient(uri, { useUnifiedTopology: true });
       await client.connect();
       const db = client.db(usersDbName);
       const collection = db.collection("localUsers");
+      const user = {
+        username: username,
+        password: password,
+      };
       let res = await collection.insertOne(user);
       return res;
     } catch (error) {
