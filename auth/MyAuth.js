@@ -16,6 +16,7 @@ function MyAuth() {
             console.log("User not found");
             return cb(null, false);
           }
+          4;
           if (user.password != password) {
             console.log("Wrong password");
             return cb(null, false);
@@ -74,8 +75,10 @@ function MyAuth() {
     });
 
     router.get("/getUser", (req, res) => {
-      console.log("get user", req.user);
-      res.json(req.user);
+      //console.log("get user", req.username);
+      if (req.user.username != null) {
+        res.json(req.user.username);
+      }
     });
 
     router.post("/register", async function (req, res) {
@@ -91,7 +94,6 @@ function MyAuth() {
     router.get("*", (req, res) =>
       res.sendFile(path.resolve("front", "build", "index.html"))
     );
-
     return router;
   };
   return myAuth;
