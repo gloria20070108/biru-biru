@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./User.css";
 
 export default function SignupPage() {
   const [username, setUsername] = useState("");
@@ -40,62 +39,69 @@ export default function SignupPage() {
   }, [checked]);
 
   return (
-    <div className="user-container">
-      <h1>Welcome to Biru Biru!</h1>
-      <div className="row">
-        <div className="col-sm-4 box border">
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">User Name</label>
-            <input
-              type="text"
-              id="sign-up-username"
-              name="username"
-              value={username}
-              className="form-control text-content"
-              placeholder="New Username"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-            <br />
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="sign-up-password"
-              value={password}
-              name="password"
-              className="form-control text-content"
-              placeholder="New Password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-            <div className="form-check">
+    <div>
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href={process.env.PUBLIC_URL + "/css/User.css"}
+      />
+      <div className="user-container">
+        <h1>Welcome to Biru Biru!</h1>
+        <div className="row signin-signup-form">
+          <div className="col-sm-4 box border">
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="username">User Name</label>
               <input
-                type="checkbox"
-                className="form-check-input"
-                id="agecheckbox"
-                checked={checked}
-                onChange={handleCheckbox}
-                required="required"
+                type="text"
+                id="sign-up-username"
+                name="username"
+                value={username}
+                className="form-control text-content"
+                placeholder="New Username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
               />
-              <label className="form-check-label" for="agecheck">
-                Already 21 years old
-              </label>
               <br />
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="sign-up-password"
+                value={password}
+                name="password"
+                className="form-control text-content"
+                placeholder="New Password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+              <div className="form-check">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id="agecheckbox"
+                  checked={checked}
+                  onChange={handleCheckbox}
+                  required="required"
+                />
+                <label className="form-check-label" for="agecheck">
+                  Already 21 years old
+                </label>
+                <br />
+              </div>
+              <br />
+              <button
+                className="w-100 btn btn-lg btn-success sign-up-btn"
+                type="submit"
+              >
+                Sign up
+              </button>
+            </form>
+            <div className="center-font">
+              <Link to="/signin" variant="body2">
+                Sign in
+              </Link>
             </div>
-            <br />
-            <button
-              className="w-100 btn btn-lg btn-success sign-up-btn"
-              type="submit"
-            >
-              Sign up
-            </button>
-          </form>
-          <div className="right">
-            <Link to="/signin" variant="body2">
-              Sign in
-            </Link>
           </div>
         </div>
       </div>

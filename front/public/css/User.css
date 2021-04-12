@@ -1,6 +1,6 @@
 body {
   background-color: #ebf5fb;
-  background-image: url("./bg1.jpg");
+  background-image: url("../images/bg1.jpg");
   /* Full height */
   height: 100%;
 
@@ -20,6 +20,7 @@ body {
   margin-top: 7%;
   margin-bottom: 7%;
   padding: 50px;
+  background: white;
 }
 
 .secondfont {
