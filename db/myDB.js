@@ -219,8 +219,6 @@ function myDB() {
       let user = await collection.findOne({ username: username });
       console.log("db result", user);
       return user;
-    } catch (error) {
-      return error;
     } finally {
       client.close();
     }
