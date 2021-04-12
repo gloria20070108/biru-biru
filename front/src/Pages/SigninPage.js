@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-//import "./Login.css";
+import "./User.css";
 export default function SigninPage() {
   return (
-    <div className="container-fluid signiniterm">
+    <div className="user-container">
       <div className="title">
         <h1>Welcome to Biru Biru!</h1>
       </div>
       <div className="row">
         <div className="col-sm-4 box border">
-          <form id="sign-in-form" action="/login" method="post">
+          <form action="/login" method="post">
             <div className="mb-2">
               <label for="username" className="form-label">
                 Username
