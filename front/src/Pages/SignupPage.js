@@ -50,7 +50,9 @@ export default function SignupPage() {
         href={process.env.PUBLIC_URL + "/css/User.css"}
       />
       <div className="user-container">
-        <h1>Welcome to Biru Biru!</h1>
+        <div className="title">
+          <h1>Welcome to Biru Biru!</h1>
+        </div>
         <div className="row signin-signup-form">
           <div className="col-sm-4 box border">
             <form onSubmit={handleSubmit}>
@@ -89,7 +91,7 @@ export default function SignupPage() {
                   required="required"
                 />
                 <label className="form-check-label" for="agecheck">
-                  Already 21 years old
+                  Confirm that I am at least 21 years of age
                 </label>
                 <br />
               </div>
@@ -114,6 +116,16 @@ export default function SignupPage() {
           </div>
         </div>
       </div>
+      <footer>
+        Photo by{" "}
+        <a href="https://unsplash.com/@georgeallancox?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+          George Cox
+        </a>{" "}
+        on{" "}
+        <a href="https://unsplash.com/s/photos/beer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+          Unsplash
+        </a>
+      </footer>
     </div>
   );
 }

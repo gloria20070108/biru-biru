@@ -40,10 +40,13 @@ export default function HomePage() {
   };
 
   return (
-    <div className="app">
-      <TopBar />
-      <HomeHeader onChange={handleSelectChanges} />
-      <BeersContainer beers={beers} />
+    <div>
+      <div className="app">
+        <TopBar />
+        <HomeHeader onChange={handleSelectChanges} />
+        <BeersContainer beers={beers} />
+      </div>
+      <footer className="photo-credit">photos by Chuan Zhang</footer>
     </div>
   );
 }

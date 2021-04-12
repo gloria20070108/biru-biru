@@ -10,9 +10,12 @@ export default function DetailPage() {
   const { id } = useParams();
 
   return (
-    <div className="app">
-      <TopBar />
-      <BeerDetail id={id} />
+    <div>
+      <div className="app">
+        <TopBar />
+        <BeerDetail id={id} />
+      </div>
+      <footer className="photo-credit">photo by Chuan Zhang</footer>
     </div>
   );
 }

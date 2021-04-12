@@ -13,6 +13,7 @@ body {
 .title {
   text-align: left;
   margin-top: 15%;
+  color: #fffaf0;
 }
 
 .box {
@@ -36,6 +37,10 @@ body {
   color: white;
   padding: 5px;
   font-size: 14px;
+}
+
+.form-check {
+  margin-top: 10px;
 }
 
 footer {

@@ -6,7 +6,8 @@ export default function SingleComment({ comment }) {
   return (
     <div className="single-comment">
       <div className="comment-user">
-        <i class="far fa-user user-icon"></i> - {comment.user}
+        <i className="far fa-user user-icon"></i> -{" "}
+        <span className="comment-user-name">{comment.user}</span>
       </div>
       <div className="comment-text">{comment.comment}</div>
     </div>

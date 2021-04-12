@@ -52,3 +52,9 @@
 .dislike-icon {
   vertical-align: bottom;
 }
+
+.photo-credit {
+  margin-top: 45px;
+  text-align: right;
+  font-size: 15px;
+}
