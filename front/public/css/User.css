@@ -31,6 +31,13 @@ body {
   text-align: center;
 }
 
+.errorMsg {
+  background: red;
+  color: white;
+  padding: 5px;
+  font-size: 14px;
+}
+
 footer {
   color: #929496;
   font-size: 15px;

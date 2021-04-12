@@ -8,7 +8,7 @@ export default function SignupPage() {
   const [flag, setFlag] = useState(false);
 
   async function registerUsers() {
-    const response = await fetch("./register", {
+    const response = await fetch("/register", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -21,9 +21,9 @@ export default function SignupPage() {
     });
     if (response.status !== 200) {
       console.log("Can't sign up current user. Please try again.");
-      setFlag(false);
+      setFlag(true);
     } else {
-      window.location.href = "/home";
+      window.location.href = "/signin";
     }
   }
   const handleCheckbox = (e) => {
@@ -93,7 +93,9 @@ export default function SignupPage() {
               </div>
               <br />
               {flag && (
-                <p>Can not create the user, please try again.</p>
+                <p className="errorMsg">
+                  Can not create the user, please try again.
+                </p>
               )}
               <button
                 className="w-100 btn btn-lg btn-success sign-up-btn"

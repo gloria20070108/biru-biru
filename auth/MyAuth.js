@@ -17,8 +17,7 @@ function MyAuth() {
             return cb(null, false);
           }
 
-          if (user.password != password) {
-            console.log("Wrong password");
+          if (user.password !== password) {
             return cb(null, false);
           }
           console.log("Login successful", user);
@@ -61,13 +60,28 @@ function MyAuth() {
     const express = require("express");
     const router = express.Router();
 
-    router.post(
-      "/login",
-      passport.authenticate("local", { failureRedirect: "/signin" }),
-      function (req, res) {
-        res.redirect("/home");
-      }
-    );
+    router.post("/login", (req, res, next) => {
+      passport.authenticate("local", (error, user) => {
+        if (error) {
+          return res.status(500).json(error);
+        }
+
+        if (!user) {
+          return res.status(401).json({});
+        }
+
+        req.login(user, (error) => {
+          if (error) {
+            return res.status(500).json(error);
+          }
+
+          res.redirect("/home");
+          return res.json({
+            message: "successfully sign in!",
+          });
+        });
+      })(req, res, next);
+    });
 
     router.post("/logout", function (req, res) {
       req.logout();
@@ -85,7 +99,7 @@ function MyAuth() {
     router.post("/register", async function (req, res) {
       let result = await MyDB.findByUsername(req.body.username);
       if (result) {
-        res.json({ error: "User exists" });
+        res.status(500).json({ error: "User exists" });
       } else {
         result = await MyDB.registerUser(req.body.username, req.body.password);
         console.log("register user result", result);
