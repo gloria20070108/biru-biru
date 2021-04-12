@@ -18,7 +18,7 @@ function MyAuth() {
           }
 
           if (user.password != password) {
-            console.log("Wrong password", user, password);
+            console.log("Wrong password", user.password, password);
             return cb(null, false);
           }
           console.log("Login successful", user);
