@@ -94,26 +94,26 @@ function MyAuth() {
     });
 
     router.get("/", (req, res) =>
-      res.sendFile(path.resolve("front", "build", "index.html"))
+      res.sendFile(path.resolve(__dirname, "front", "build", "index.html"))
     );
 
     router.get("/home", isLoggedIn, (req, res) =>
-      res.sendFile(path.resolve("front", "build", "index.html"))
+      res.sendFile(path.resolve(__dirname, "front", "build", "index.html"))
     );
 
     router.get("/detail/*", isLoggedIn, (req, res) =>
-      res.sendFile(path.resolve("front", "build", "index.html"))
+      res.sendFile(path.resolve(__dirname, "front", "build", "index.html"))
     );
 
     router.get("/signin", (req, res) => {
       if (req.isAuthenticated()) {
         res.redirect("/home");
       }
-      res.sendFile(path.resolve("front", "build", "index.html"));
+      res.sendFile(path.resolve(__dirname, "front", "build", "index.html"));
     });
 
     router.get("/signup", (req, res) =>
-      res.sendFile(path.resolve("front", "build", "index.html"))
+      res.sendFile(path.resolve(__dirname, "front", "build", "index.html"))
     );
 
     function isLoggedIn(req, res, next) {
