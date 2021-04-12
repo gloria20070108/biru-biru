@@ -16,9 +16,9 @@ function MyAuth() {
             console.log("User not found");
             return cb(null, false);
           }
-          4;
+
           if (user.password != password) {
-            console.log("Wrong password");
+            console.log("Wrong password", user, password);
             return cb(null, false);
           }
           console.log("Login successful", user);
