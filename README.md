@@ -6,11 +6,15 @@ Web page: https://biru-biru.herokuapp.com/
 
 ## Author
 
-Na Lou, Zhangzhang Li
+Zhangzhang Li
+
+Na Lou
 
 ## Photo credit
 
 Chuan Zhang
+
+George Cox on Unsplash
 
 ## Tech
 React/HTML/CSS/JS/MongoDB/Express/NodeJS/Passport/Heroku
