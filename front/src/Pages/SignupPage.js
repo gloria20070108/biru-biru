@@ -39,7 +39,7 @@ export default function SignupPage() {
 
   useEffect(() => {
     console.log("checkItems:", checked);
-    setFlage(false);
+    setFlag(false);
   }, [checked]);
 
   return (
