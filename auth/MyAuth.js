@@ -89,8 +89,8 @@ function MyAuth() {
       } else {
         result = await MyDB.registerUser(req.body.username, req.body.password);
         console.log("register user result", result);
+        res.redirect("/signin");
       }
-      res.redirect("/home");
     });
 
     router.get("/", (req, res) =>
