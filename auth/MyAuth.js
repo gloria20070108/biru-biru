@@ -1,6 +1,6 @@
 const passport = require("passport");
 const Strategy = require("passport-local").Strategy;
-const MyDB = require("../db/MyDB");
+const MyDB = require("../db/myDB");
 const path = require("path");
 
 function MyAuth() {
