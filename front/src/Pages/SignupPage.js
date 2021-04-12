@@ -5,6 +5,7 @@ export default function SignupPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
+  const [flag, setFlag] = useState(false);
 
   async function registerUsers() {
     const response = await fetch("./register", {
@@ -20,6 +21,7 @@ export default function SignupPage() {
     });
     if (response.status !== 200) {
       console.log("Can't sign up current user. Please try again.");
+      setFlag(false);
     } else {
       window.location.href = "/home";
     }
@@ -90,6 +92,9 @@ export default function SignupPage() {
                 <br />
               </div>
               <br />
+              {flag && (
+                <p>Can not create the user, please try again.</p>
+              )}
               <button
                 className="w-100 btn btn-lg btn-success sign-up-btn"
                 type="submit"
