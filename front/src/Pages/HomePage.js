@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 import TopBar from "../Components/TopBar/TopBar";
 
@@ -46,3 +47,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+HomePage.propTypes = {};

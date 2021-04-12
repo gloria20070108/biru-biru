@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 
 export default function Navigation() {
   const fetchUser = async () => {
@@ -18,3 +19,5 @@ export default function Navigation() {
 
   return <div></div>;
 }
+
+Navigation.propTypes = {};

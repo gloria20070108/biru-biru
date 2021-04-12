@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+
 import { Modal } from "react-bootstrap";
 
 import "./css/TopBar.css";
@@ -65,3 +67,5 @@ export default function TopBar() {
     </div>
   );
 }
+
+TopBar.propTypes = {};

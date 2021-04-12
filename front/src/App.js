@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   BrowserRouter as Router,
   Switch,
@@ -37,3 +38,5 @@ export default function App() {
     </Router>
   );
 }
+
+App.propTypes = {};
