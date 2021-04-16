@@ -60,8 +60,18 @@
   cursor: pointer;
 }
 
+.beer-detail-like-icon-disabled,
+.beer-detail-dislike-icon-disabled {
+  font-size: 23px;
+  cursor: default;
+}
+
 .beer-detail-dislike-icon {
   vertical-align: bottom;
+}
+
+.comment-input {
+  margin-bottom: 60px;
 }
 
 .comment-input-textarea {
@@ -74,10 +84,6 @@
 .submit-btn {
   float: right;
   margin: 1px;
-}
-
-.existing-comments {
-  margin-top: 60px;
 }
 
 .pagination-icon {

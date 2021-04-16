@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import SingleComment from "./SingleComment";
 
-export default function Comments({ id }) {
+export default function Comments({ id, user }) {
   const pageSize = 10;
   const [total, setTotal] = useState(0);
   const [start, setStart] = useState(0);
@@ -94,31 +94,33 @@ export default function Comments({ id }) {
   return (
     <div>
       <div className="comments-header">Comments</div>
-      <div className="comment-input">
-        <textarea
-          className="comment-input-textarea"
-          name="comment-input"
-          cols="30"
-          rows="3"
-          value={newComment}
-          onChange={handleNewCommentChange}
-        ></textarea>
-        <button
-          className="btn btn-sm btn-success submit-btn"
-          disabled={newComment === ""}
-          onClick={submitComment}
-        >
-          Submit
-        </button>
-        <button
-          className="btn btn-sm btn-secondary cancel-btn"
-          disabled={newComment === ""}
-          onClick={resetComment}
-        >
-          Cancel
-        </button>
-      </div>
-      <div className="existing-comments">
+      {user && (
+        <div className="comment-input">
+          <textarea
+            className="comment-input-textarea"
+            name="comment-input"
+            cols="30"
+            rows="3"
+            value={newComment}
+            onChange={handleNewCommentChange}
+          ></textarea>
+          <button
+            className="btn btn-sm btn-success submit-btn"
+            disabled={newComment === ""}
+            onClick={submitComment}
+          >
+            Submit
+          </button>
+          <button
+            className="btn btn-sm btn-secondary cancel-btn"
+            disabled={newComment === ""}
+            onClick={resetComment}
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+      <div>
         {(() => {
           if (comments.length > 0) {
             return (
@@ -144,6 +146,10 @@ export default function Comments({ id }) {
                 ></i>
               </div>
             );
+          } else {
+            return (
+              <div className="no-comment-msg">No Comment for this beer.</div>
+            );
           }
         })()}
 
@@ -157,4 +163,5 @@ export default function Comments({ id }) {
 
 Comments.propTypes = {
   id: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
 };

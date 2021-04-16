@@ -8,11 +8,27 @@
   margin-bottom: 10px;
 }
 
-.sign-out-btn {
+.top-bar-btn {
   display: inline-block;
+  margin-left: 10px;
 }
 
 .greeting {
   display: inline-block;
-  margin-right: 10px;
+}
+
+.form-control,
+.form-check {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.errorMsg {
+  color: white;
+  background: red;
+  border-radius: 0.3rem;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 7px;
+  margin-bottom: 10px;
 }

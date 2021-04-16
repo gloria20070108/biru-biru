@@ -75,7 +75,7 @@ function MyAuth() {
             return res.status(500).json(error);
           }
 
-          res.redirect("/home");
+          res.redirect("/");
           return res.json({
             message: "successfully sign in!",
           });
@@ -84,8 +84,12 @@ function MyAuth() {
     });
 
     router.post("/logout", function (req, res) {
-      req.logout();
-      res.redirect("/signin");
+      try {
+        req.logout();
+        return res.json({ message: "successfully logged out!" });
+      } catch (err) {
+        return res.status(404).json({ error: err });
+      }
     });
 
     router.get("/getUser", (req, res) => {
@@ -103,7 +107,7 @@ function MyAuth() {
       } else {
         result = await MyDB.registerUser(req.body.username, req.body.password);
         console.log("register user result", result);
-        res.redirect("/signin");
+        // TODO: auto login here
       }
     });
 
@@ -113,40 +117,11 @@ function MyAuth() {
       )
     );
 
-    router.get("/home", isLoggedIn, (req, res) =>
+    router.get("/detail/*", (req, res) =>
       res.sendFile(
         path.resolve(__dirname, "..", "front", "build", "index.html")
       )
     );
-
-    router.get("/detail/*", isLoggedIn, (req, res) =>
-      res.sendFile(
-        path.resolve(__dirname, "..", "front", "build", "index.html")
-      )
-    );
-
-    router.get("/signin", (req, res) => {
-      if (req.isAuthenticated()) {
-        res.redirect("/home");
-      }
-      res.sendFile(
-        path.resolve(__dirname, "..", "front", "build", "index.html")
-      );
-    });
-
-    router.get("/signup", (req, res) =>
-      res.sendFile(
-        path.resolve(__dirname, "..", "front", "build", "index.html")
-      )
-    );
-
-    function isLoggedIn(req, res, next) {
-      if (req.isAuthenticated()) {
-        return next();
-      } else {
-        return res.redirect("/signin");
-      }
-    }
 
     return router;
   };

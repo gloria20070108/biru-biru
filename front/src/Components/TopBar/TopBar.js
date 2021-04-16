@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { Modal } from "react-bootstrap";
+import SigninModal from "./SigninModal";
+import SignupModal from "./SignupModal";
+import SignoutModal from "./SignoutModal";
 
 import "./css/TopBar.css";
 
 export default function TopBar() {
-  const [user, setUser] = useState("");
-  const [showModal, setModal] = useState(false);
+  const [showSigninModal, setShowSigninModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  const [showSignoutModal, setShowSignoutModal] = useState(false);
+
+  const [isFetchingUser, setIsFetchingUser] = useState(true);
+  const [user, setUser] = useState(null);
   const fetchUser = async () => {
-    const res = await (await fetch("/getUser")).json();
-    console.log("fetch user result", res);
-    if (typeof res != "undefind") {
-      setUser(res);
+    setIsFetchingUser(true);
+    const res = await fetch("/getUser");
+    if (res.status === 200) {
+      setUser(await res.json());
+    } else {
+      setUser(null);
     }
+    setIsFetchingUser(false);
   };
 
   useEffect(() => {
@@ -22,44 +31,57 @@ export default function TopBar() {
 
   return (
     <div>
-      <div>
-        <Modal size="md" show={showModal} onHide={() => setModal(false)}>
-          <Modal.Header>
-            <Modal.Title>Signout</Modal.Title>
-            <button
-              type="button"
-              className="btn-close"
-              onClick={() => setModal(false)}
-              aria-label="Close"
-            ></button>
-          </Modal.Header>
-          <Modal.Body>
-            <div className="signout-msg">
-              Are you sure you want to sign out?
-            </div>
-            <form action="/logout" method="post">
-              <button
-                className="w-100 btn btn-lg btn-primary sign-out-btn"
-                type="submit"
-              >
-                Sign out
-              </button>
-            </form>
-          </Modal.Body>
-        </Modal>
-      </div>
+      <SigninModal
+        show={showSigninModal}
+        onHide={() => {
+          setShowSigninModal(false);
+        }}
+      />
+      <SignupModal
+        show={showSignupModal}
+        onHide={() => {
+          setShowSignupModal(false);
+        }}
+      />
+      <SignoutModal
+        show={showSignoutModal}
+        onHide={() => {
+          setShowSignoutModal(false);
+        }}
+      />
       <header>
         <nav className="navbar navbar-expand-md navbar-light fixed-top">
           <div className="container-fluid">
             <span className="navbar-brand">BiruBiru~</span>
             <div class="to-right">
-              <div className="greeting">Hello {user}</div>
-              <button
-                className="btn btn-outline-success sign-out-btn"
-                onClick={() => setModal(true)}
-              >
-                Signout
-              </button>
+              {isFetchingUser ? (
+                <div></div>
+              ) : !user ? (
+                <div>
+                  <button
+                    className="btn btn-outline-success top-bar-btn"
+                    onClick={() => setShowSigninModal(true)}
+                  >
+                    Signin
+                  </button>
+                  <button
+                    className="btn btn-outline-primary top-bar-btn"
+                    onClick={() => setShowSignupModal(true)}
+                  >
+                    Signup
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div className="greeting">Hello {user}</div>
+                  <button
+                    className="btn btn-outline-success top-bar-btn"
+                    onClick={() => setShowSignoutModal(true)}
+                  >
+                    Signout
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </nav>

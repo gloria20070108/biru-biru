@@ -7,8 +7,16 @@ import Comments from "./Comments";
 
 export default function BeerDetail({ id }) {
   const [beer, setBeer] = useState(null);
+  const [user, setUser] = useState(null);
+  const fetchUser = async () => {
+    const res = await fetch("/getUser");
+    if (res.status === 200) {
+      setUser(await res.json());
+    } else {
+      setUser(null);
+    }
+  };
 
-  // TODO: make fetch function work with the real backend
   const fetchBeerById = async (id) => {
     const url = `/beers?id=${id}`;
     const res = await fetch(url);
@@ -27,44 +35,49 @@ export default function BeerDetail({ id }) {
   };
 
   useEffect(() => {
+    fetchUser();
     fetchBeerById(id);
   }, []);
 
   const clickLike = async () => {
-    const res = await fetch("/addLike", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: id,
-      }),
-    });
+    if (user) {
+      const res = await fetch("/addLike", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
 
-    if (res.status === 200) {
-      fetchBeerById(id);
-    } else {
-      alert("Add like failed!");
+      if (res.status === 200) {
+        fetchBeerById(id);
+      } else {
+        alert("Add like failed!");
+      }
     }
   };
 
   const clickDislike = async () => {
-    const res = await fetch("/addDislike", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: id,
-      }),
-    });
+    if (user) {
+      const res = await fetch("/addDislike", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
 
-    if (res.status === 200) {
-      fetchBeerById(id);
-    } else {
-      alert("Add dislike failed!");
+      if (res.status === 200) {
+        fetchBeerById(id);
+      } else {
+        alert("Add dislike failed!");
+      }
     }
   };
 
@@ -112,7 +125,11 @@ export default function BeerDetail({ id }) {
                 <div className="beer-detail-label">Like:</div>
                 <div className="beer-detail-value">
                   <i
-                    class="far fa-thumbs-up beer-detail-like-icon"
+                    className={
+                      user
+                        ? "far fa-thumbs-up beer-detail-like-icon"
+                        : "far fa-thumbs-up beer-detail-like-icon-disabled"
+                    }
                     onClick={clickLike}
                   ></i>{" "}
                   {beer.like}
@@ -122,7 +139,11 @@ export default function BeerDetail({ id }) {
                 <div className="beer-detail-label">Dislike:</div>
                 <div className="beer-detail-value">
                   <i
-                    class="far fa-thumbs-down beer-detail-dislike-icon"
+                    className={
+                      user
+                        ? "far fa-thumbs-down beer-detail-dislike-icon"
+                        : "far fa-thumbs-down beer-detail-dislike-icon-disabled"
+                    }
                     onClick={clickDislike}
                   ></i>{" "}
                   {beer.dislike}
@@ -131,7 +152,7 @@ export default function BeerDetail({ id }) {
             </div>
           </div>
           <div className="beer-detail-lower-container">
-            <Comments id={id}></Comments>
+            <Comments id={id} user={user}></Comments>
           </div>
         </div>
       </div>
