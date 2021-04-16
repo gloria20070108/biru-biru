@@ -21,7 +21,7 @@ export default function SignupPage() {
       }),
     });
     if (response.status !== 200) {
-      console.log("Can't sign up current user. Please try again.");
+      console.log("Can't sign up current user. Please try again."); // I got kind of confused with the reason when I failed in signing up.
       setFlag(true);
     } else {
       window.location.href = "/signin";
