@@ -91,7 +91,7 @@ export default function BeerDetail({ id }) {
           <div className="beer-detail-upper-container">
             <div className="beer-detail-img-container">
               <img
-                className="beer-img"
+                className="beer-detail-img"
                 src={process.env.PUBLIC_URL + "/images/" + beer.img}
                 alt={beer.name}
               />

@@ -8,7 +8,7 @@ import "./css/HomePage.css";
 export default function HomeHeader(props) {
   const sortOptions = [
     { value: "like-", label: "Most Liked" },
-    { value: "dislike-", label: "Most Hated" },
+    { value: "dislike-", label: "Most Disliked" },
     { value: "abv-", label: "ABV - High to Low" },
     { value: "abv+", label: "ABV - Low to High" },
   ];
@@ -89,7 +89,6 @@ export default function HomeHeader(props) {
 
   return (
     <div className="home-header">
-      <h3>Cheers!</h3>
       <Select
         className="selector"
         options={styles}

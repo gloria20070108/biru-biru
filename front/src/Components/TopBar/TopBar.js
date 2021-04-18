@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 
 import SigninModal from "./SigninModal";
 import SignupModal from "./SignupModal";
@@ -73,7 +72,7 @@ export default function TopBar() {
                 </div>
               ) : (
                 <div>
-                  <div className="greeting">Hello {user}</div>
+                  <div className="greeting">Cheers {user}!</div>
                   <button
                     className="btn btn-outline-success top-bar-btn"
                     onClick={() => setShowSignoutModal(true)}
@@ -89,5 +88,3 @@ export default function TopBar() {
     </div>
   );
 }
-
-TopBar.propTypes = {};

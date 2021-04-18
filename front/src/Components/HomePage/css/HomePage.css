@@ -5,10 +5,6 @@
 }
 
 .home-header {
-  position: fixed;
-  top: 70px;
-  left: 0;
-  right: 0;
   padding-top: 10px;
   padding-bottom: 20px;
   padding-left: 45px;
@@ -17,7 +13,8 @@
 }
 
 .beers-container {
-  margin-top: 200px;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
 }
 
 .beer {
@@ -25,28 +22,29 @@
 }
 
 .beer-img-container {
-  height: 440px;
-  width: 330px;
-  margin: 10px;
+  height: 15vw;
+  width: 15vw;
+  margin: 1vw;
+  border-radius: 50%;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .beer-img {
   max-width: 100%;
-  max-height: 100%;
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .beer-text {
+  display: none; /* TODO: add this back */
   font-size: 18px;
   text-align: center;
   color: black;
   text-decoration: none;
-}
-
-.like-icon,
-.dislike-icon {
-  color: black;
-  font-size: 23px;
 }
 
 .dislike-icon {

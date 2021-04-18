@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import HomePage from "./Pages/HomePage";
 import DetailPage from "./Pages/DetailPage";
 
 export default function App() {
-  const [isLogin, setIsLogin] = useState(false);
-
   return (
     <Router>
       <Switch>
@@ -26,5 +18,3 @@ export default function App() {
     </Router>
   );
 }
-
-App.propTypes = {};

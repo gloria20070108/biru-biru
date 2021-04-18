@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 
 import TopBar from "../Components/TopBar/TopBar";
 
+import Banner from "../Components/HomePage/Banner";
 import HomeHeader from "../Components/HomePage/HomeHeader";
 import BeersContainer from "../Components/HomePage/BeersContainer";
 
@@ -43,6 +43,7 @@ export default function HomePage() {
     <div>
       <div className="app">
         <TopBar />
+        <Banner></Banner>
         <HomeHeader onChange={handleSelectChanges} />
         <BeersContainer beers={beers} />
       </div>
@@ -50,5 +51,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-HomePage.propTypes = {};
