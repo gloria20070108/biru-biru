@@ -18,8 +18,15 @@ router.get("/beers", async (req, res) => {
     const country = params.country === "all" ? null : params.country;
     const flavor = params.flavor === "all" ? null : params.flavor;
     const sortOption = params.sortOption;
+    const limit = params.limit ? parseInt(params.limit) : 0;
     try {
-      const result = await MyDB.getBeers(style, country, flavor, sortOption);
+      const result = await MyDB.getBeers(
+        style,
+        country,
+        flavor,
+        sortOption,
+        limit
+      );
       res.json(result);
     } catch (err) {
       res.status(500).json({ error: err });

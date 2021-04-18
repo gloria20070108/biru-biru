@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 
 import { Link } from "react-router-dom";
 
+import "./css/Beer.css";
+
 export default function Beer({ beer }) {
   return (
     <div className="beer">
@@ -14,12 +16,11 @@ export default function Beer({ beer }) {
             src={process.env.PUBLIC_URL + "/images/" + beer.img}
             alt={beer.name}
           />
+          <div class="beer-img-text-container">
+            <div class="beer-img-text">{beer.name}</div>
+          </div>
         </div>
       </Link>
-      <div className="beer-text">
-        {beer.name} - <i class="far fa-thumbs-up like-icon"></i> {beer.like}{" "}
-        <i class="far fa-thumbs-down dislike-icon"></i> {beer.dislike}
-      </div>
     </div>
   );
 }

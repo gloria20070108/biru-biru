@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import DetailHeader from "./DetailHeader";
 import Comments from "./Comments";
 
+import "./css/BeerDetail.css";
+
 export default function BeerDetail({ id }) {
   const [beer, setBeer] = useState(null);
   const [user, setUser] = useState(null);

@@ -9,7 +9,7 @@ function myDB() {
   const beersDbName = "beers";
   const uri = process.env.MONGO_URI;
 
-  myDB.getBeers = async (style, country, flavor, sortOption) => {
+  myDB.getBeers = async (style, country, flavor, sortOption, limit) => {
     let client;
     const params = {};
     if (style) {
@@ -38,7 +38,11 @@ function myDB() {
       await client.connect();
       const db = client.db(beersDbName);
       const collection = db.collection("beers");
-      const result = await collection.find(params).sort(sortParam).toArray();
+      const result = await collection
+        .find(params)
+        .sort(sortParam)
+        .limit(limit)
+        .toArray();
       return result;
     } catch (error) {
       return error;

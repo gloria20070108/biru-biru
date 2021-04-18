@@ -1,6 +1,11 @@
 .navbar {
-  background-color: #e3f2fd;
+  background-color: #e5f5f5;
   height: 70px;
+}
+
+.navbar-brand {
+  font-weight: bolder;
+  font-size: 1.65rem;
 }
 
 .signout-msg {
@@ -11,10 +16,12 @@
 .top-bar-btn {
   display: inline-block;
   margin-left: 10px;
+  width: 120px;
 }
 
 .greeting {
   display: inline-block;
+  vertical-align: middle;
 }
 
 .form-control,

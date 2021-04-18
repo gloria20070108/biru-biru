@@ -1,0 +1,58 @@
+.comments-header {
+  font-size: 1.75rem;
+}
+
+.comment-input {
+  margin-bottom: 40px;
+}
+
+.comment-input-textarea {
+  width: 100%;
+  resize: none;
+  padding: 15px;
+  font-size: 0.9rem;
+}
+
+.cancel-btn,
+.submit-btn {
+  float: right;
+  margin: 1px;
+}
+
+.pagination-container {
+  font-size: 1.15rem;
+}
+
+.pagination-icon {
+  margin: 10px;
+  cursor: pointer;
+}
+
+.pagination-icon-disabled {
+  margin: 5px;
+  cursor: not-allowed;
+}
+
+.single-comment {
+  border-top: 1px solid black;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.user-icon {
+  color: black;
+}
+
+.comment-user-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.comment-text {
+  font-size: 0.9rem;
+}
+
+.no-comment-msg {
+  font-size: 1.25rem;
+  text-align: center;
+}

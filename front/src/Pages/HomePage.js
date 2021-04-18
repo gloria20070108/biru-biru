@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import TopBar from "../Components/TopBar/TopBar";
 
 import Banner from "../Components/HomePage/Banner";
+import Top5s from "../Components/HomePage/Top5s";
 import HomeHeader from "../Components/HomePage/HomeHeader";
 import BeersContainer from "../Components/HomePage/BeersContainer";
 
@@ -44,6 +45,12 @@ export default function HomePage() {
       <div className="app">
         <TopBar />
         <Banner></Banner>
+        <div className="top-5s-container">
+          <Top5s title="Most Popular" sortOption="like-"></Top5s>
+          <Top5s title="Strongest" sortOption="abv-"></Top5s>
+          <Top5s title="Chilling Options" sortOption="abv+"></Top5s>
+        </div>
+        <div className="all-beers-title">~ All Beers ~</div>
         <HomeHeader onChange={handleSelectChanges} />
         <BeersContainer beers={beers} />
       </div>

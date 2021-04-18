@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 
 import SingleComment from "./SingleComment";
 
+import "./css/Comments.css";
+
 export default function Comments({ id, user }) {
   const pageSize = 10;
   const [total, setTotal] = useState(0);
@@ -124,7 +126,7 @@ export default function Comments({ id, user }) {
         {(() => {
           if (comments.length > 0) {
             return (
-              <div>
+              <div className="pagination-container">
                 <i
                   className={
                     start > 0
@@ -148,7 +150,7 @@ export default function Comments({ id, user }) {
             );
           } else {
             return (
-              <div className="no-comment-msg">No Comment for this beer.</div>
+              <div className="no-comment-msg">~ No Comment for this beer ~</div>
             );
           }
         })()}
