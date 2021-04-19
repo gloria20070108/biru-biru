@@ -7,6 +7,8 @@ import Top5s from "../Components/HomePage/Top5s";
 import HomeHeader from "../Components/HomePage/HomeHeader";
 import BeersContainer from "../Components/HomePage/BeersContainer";
 
+import "../Components/HomePage/css/HomePage.css";
+
 export default function HomePage() {
   const [beers, setBeers] = useState([]);
 
@@ -52,6 +54,9 @@ export default function HomePage() {
         </div>
         <div className="all-beers-title">~ All Beers ~</div>
         <HomeHeader onChange={handleSelectChanges} />
+        {beers.length === 0 && (
+          <div className="beer-not-found-msg">~ No beer found ~</div>
+        )}
         <BeersContainer beers={beers} />
       </div>
       <footer className="photo-credit">photos by Chuan Zhang</footer>

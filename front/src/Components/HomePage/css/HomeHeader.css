@@ -1,0 +1,35 @@
+.home-header-outter {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.home-header {
+  font-size: 0.9rem;
+  width: 88%;
+}
+
+.selector {
+  display: inline-block;
+  margin-right: 1%;
+  width: 20%;
+}
+
+.filter-container,
+.sort-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.filter-text,
+.sort-text {
+  display: inline-block;
+  width: 92px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.clear-filter-link {
+  display: inline-block;
+  margin-left: 10px;
+}

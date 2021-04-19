@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 
 import Select from "react-select";
 
-import "./css/HomePage.css";
+import "./css/HomeHeader.css";
 
 export default function HomeHeader(props) {
   const sortOptions = [
     { value: "like-", label: "Most Liked" },
-    { value: "dislike-", label: "Most Disliked" },
     { value: "abv-", label: "ABV - High to Low" },
     { value: "abv+", label: "ABV - Low to High" },
   ];
@@ -87,72 +86,101 @@ export default function HomeHeader(props) {
     fetchFlavors();
   }, []);
 
+  const resetFilters = (e) => {
+    e.preventDefault();
+    setSelectedStyle(styles[0]);
+    setSelectedCountry(countries[0]);
+    setSelectedFlavor(flavors[0]);
+
+    if (props.onChange) {
+      props.onChange({
+        style: "all",
+        country: "all",
+        flavor: "all",
+        sortOption: selectedSortOption.value,
+      });
+    }
+  };
+
   return (
-    <div className="home-header">
-      <Select
-        className="selector"
-        options={styles}
-        onChange={(value) => {
-          setSelectedStyle(value);
-          if (props.onChange) {
-            props.onChange({
-              style: value.value,
-              country: selectedCountry.value,
-              flavor: selectedFlavor.value,
-              sortOption: selectedSortOption.value,
-            });
-          }
-        }}
-        defaultValue={selectedStyle}
-      />
-      <Select
-        className="selector"
-        options={countries}
-        onChange={(value) => {
-          setSelectedCountry(value);
-          if (props.onChange) {
-            props.onChange({
-              style: selectedStyle.value,
-              country: value.value,
-              flavor: selectedFlavor.value,
-              sortOption: selectedSortOption.value,
-            });
-          }
-        }}
-        defaultValue={selectedCountry}
-      />
-      <Select
-        className="selector"
-        options={flavors}
-        onChange={(value) => {
-          setSelectedFlavor(value);
-          if (props.onChange) {
-            props.onChange({
-              style: selectedStyle.value,
-              country: selectedCountry.value,
-              flavor: value.value,
-              sortOption: selectedSortOption.value,
-            });
-          }
-        }}
-        defaultValue={selectedFlavor}
-      />
-      <Select
-        className="selector"
-        options={sortOptions}
-        onChange={(value) => {
-          setSelectedSortOption(value);
-          if (props.onChange) {
-            props.onChange({
-              style: selectedStyle.value,
-              country: selectedCountry.value,
-              flavor: selectedFlavor.value,
-              sortOption: value.value,
-            });
-          }
-        }}
-        defaultValue={selectedSortOption}
-      />
+    <div className="home-header-outter">
+      <div className="home-header">
+        <div className="filter-container">
+          <div className="filter-text">Filter by:</div>
+          <Select
+            className="selector"
+            options={styles}
+            onChange={(value) => {
+              setSelectedStyle(value);
+              if (props.onChange) {
+                props.onChange({
+                  style: value.value,
+                  country: selectedCountry.value,
+                  flavor: selectedFlavor.value,
+                  sortOption: selectedSortOption.value,
+                });
+              }
+            }}
+            value={selectedStyle}
+          />
+          <Select
+            className="selector"
+            options={countries}
+            onChange={(value) => {
+              setSelectedCountry(value);
+              if (props.onChange) {
+                props.onChange({
+                  style: selectedStyle.value,
+                  country: value.value,
+                  flavor: selectedFlavor.value,
+                  sortOption: selectedSortOption.value,
+                });
+              }
+            }}
+            value={selectedCountry}
+          />
+          <Select
+            className="selector"
+            options={flavors}
+            onChange={(value) => {
+              setSelectedFlavor(value);
+              if (props.onChange) {
+                props.onChange({
+                  style: selectedStyle.value,
+                  country: selectedCountry.value,
+                  flavor: value.value,
+                  sortOption: selectedSortOption.value,
+                });
+              }
+            }}
+            value={selectedFlavor}
+          />
+          <div className="clear-filter-link">
+            <a href="#" onClick={resetFilters}>
+              Clear All
+            </a>
+          </div>
+        </div>
+        <div className="sort-container">
+          <div className="sort-text">Sorted by:</div>
+          <Select
+            className="selector"
+            options={sortOptions}
+            onChange={(value) => {
+              setSelectedSortOption(value);
+              if (props.onChange) {
+                props.onChange({
+                  style: selectedStyle.value,
+                  country: selectedCountry.value,
+                  flavor: selectedFlavor.value,
+                  sortOption: value.value,
+                });
+              }
+            }}
+            defaultValue={selectedSortOption}
+          />
+        </div>
+      </div>
     </div>
   );
 }
