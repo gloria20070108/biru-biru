@@ -240,7 +240,7 @@ function myDB() {
         password: password,
       };
       let res = await collection.insertOne(user);
-      return res;
+      return user;
     } catch (error) {
       return error;
     } finally {

@@ -2,30 +2,80 @@ const passport = require("passport");
 const Strategy = require("passport-local").Strategy;
 const MyDB = require("../db/myDB");
 const path = require("path");
+const bcrypt = require("bcrypt");
 
 function MyAuth() {
   const myAuth = {};
   //Set up passport session
+
   myAuth.setupPassport = (app) => {
     passport.use(
-      new Strategy(async function (username, password, cb) {
-        console.log("passport authentication...", username);
-        try {
-          const user = await MyDB.findByUsername(username);
-          if (!user) {
-            console.log("User not found");
-            return cb(null, false);
-          }
+      "local-signin",
+      new Strategy(
+        { passReqToCallback: true },
+        async function (req, username, password, cb) {
+          console.log("local signin...", username);
+          try {
+            const user = await MyDB.findByUsername(username);
+            if (!user) {
+              console.log("User not found");
+              req.session.error = "user not found";
+              return cb(null, user);
+            }
+            //check user password with hashed password stored in the database
+            const validPassword = await bcrypt.compare(password, user.password);
+            console.log("is it valid password?");
+            if (!validPassword) {
+              console.log("wrong password");
+              req.session.error = "wrong password";
+              return cb(null, user);
+            }
 
-          if (user.password !== password) {
-            return cb(null, false);
+            console.log("LOGGED IN AS: " + user.username);
+            req.session.success =
+              "You are successfully logged in " + user.username + "!";
+            return cb(null, user);
+          } catch (err) {
+            console.log(err.body);
+            return cb(err.body, user);
           }
-          console.log("Login successful", user);
-          return cb(null, user);
-        } catch (err) {
-          return cb(err);
         }
-      })
+      )
+    );
+
+    passport.use(
+      "local-signup",
+      new Strategy(
+        { passReqToCallback: true },
+        async function (req, username, password, cb) {
+          console.log("local signup...", username);
+          //generate salt to hash password
+          const salt = await bcrypt.genSalt(10);
+          password = await bcrypt.hash(password, salt);
+
+          try {
+            const result = await MyDB.findByUsername(username);
+            if (result) {
+              console.log("COULD NOT REGISTER");
+              req.session.error =
+                "That username is already in use, please try a different one.";
+              return cb(null, false);
+            }
+            const user = await MyDB.registerUser(username, password);
+            if (user) {
+              console.log("REGISTERED: " + user);
+              req.session.success =
+                "You are successfully registered and logged in " +
+                user.username +
+                "!";
+              return cb(null, user);
+            }
+          } catch (err) {
+            console.log(err.body);
+            return cb(err.body, user);
+          }
+        }
+      )
     );
 
     //Save username in the session
@@ -61,7 +111,7 @@ function MyAuth() {
     const router = express.Router();
 
     router.post("/login", (req, res, next) => {
-      passport.authenticate("local", (error, user) => {
+      passport.authenticate("local-signin", (error, user) => {
         if (error) {
           return res.status(500).json(error);
         }
@@ -100,15 +150,22 @@ function MyAuth() {
       }
     });
 
-    router.post("/register", async function (req, res) {
-      let result = await MyDB.findByUsername(req.body.username);
-      if (result) {
-        res.status(500).json({ error: "User exists" });
-      } else {
-        result = await MyDB.registerUser(req.body.username, req.body.password);
-        console.log("register user result", result);
-        // TODO: auto login here
-      }
+    router.post("/register", (req, res, next) => {
+      passport.authenticate("local-signup", (error, user) => {
+        if (error) {
+          return res.status(500).json(error);
+        }
+
+        req.login(user, (error) => {
+          if (error) {
+            return res.status(500).json(error);
+          } else {
+            return res.json({
+              message: "successfully sign up and sign in!",
+            });
+          }
+        });
+      })(req, res, next);
     });
 
     router.get("/", (req, res) =>
