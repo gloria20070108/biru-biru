@@ -10,6 +10,9 @@ import "./css/BeerDetail.css";
 export default function BeerDetail({ id }) {
   const [beer, setBeer] = useState(null);
   const [user, setUser] = useState(null);
+  const [likeColor, setLikeColor] = useState("black");
+  const [dislikeColor, setDislikeColor] = useState("black");
+
   const fetchUser = async () => {
     const res = await fetch("/getUser");
     if (res.status === 200) {
@@ -42,6 +45,8 @@ export default function BeerDetail({ id }) {
   }, []);
 
   const clickLike = async () => {
+    setDislikeColor("black");
+    setLikeColor("blue");
     if (user) {
       const res = await fetch("/addLike", {
         method: "POST",
@@ -63,6 +68,9 @@ export default function BeerDetail({ id }) {
   };
 
   const clickDislike = async () => {
+    setLikeColor("black");
+    setDislikeColor("blue");
+
     if (user) {
       const res = await fetch("/addDislike", {
         method: "POST",
@@ -127,6 +135,7 @@ export default function BeerDetail({ id }) {
                 <div className="beer-detail-label">Like:</div>
                 <div className="beer-detail-value">
                   <i
+                    style={{ color: likeColor }}
                     className={
                       user
                         ? "far fa-thumbs-up beer-detail-like-icon"
@@ -134,13 +143,14 @@ export default function BeerDetail({ id }) {
                     }
                     onClick={clickLike}
                   ></i>{" "}
-                  {beer.like}
+                  {beer.like.length}
                 </div>
               </div>
               <div className="beer-detail-info">
                 <div className="beer-detail-label">Dislike:</div>
                 <div className="beer-detail-value">
                   <i
+                    style={{ color: dislikeColor }}
                     className={
                       user
                         ? "far fa-thumbs-down beer-detail-dislike-icon"
@@ -148,7 +158,7 @@ export default function BeerDetail({ id }) {
                     }
                     onClick={clickDislike}
                   ></i>{" "}
-                  {beer.dislike}
+                  {beer.dislike.length}
                 </div>
               </div>
             </div>

@@ -154,18 +154,38 @@ function myDB() {
     }
   };
 
-  myDB.addLike = async (id) => {
+  myDB.addLike = async (id, user) => {
     let client;
     try {
       client = new MongoClient(uri, { useUnifiedTopology: true });
       await client.connect();
       const db = client.db(beersDbName);
       const collection = db.collection("beers");
-      const result = await collection.update(
-        { _id: ObjectId(id) },
-        { $inc: { like: 1 } }
-      );
-      return result;
+      const likeRes = await collection.findOne({
+        _id: ObjectId(id),
+        like: user,
+      });
+      const dislikeRes = await collection.findOne({
+        _id: ObjectId(id),
+        dislike: user,
+      });
+
+      //if user choose unlike before, delete the record.
+      if (dislikeRes) {
+        const result = await collection.updateOne(
+          { _id: ObjectId(id) },
+          { $pull: { dislike: user } }
+        );
+      }
+      if (!likeRes && user) {
+        const result = await collection.updateOne(
+          { _id: ObjectId(id) },
+          { $push: { like: user } }
+        );
+      }
+      if (likeRes) {
+        console.log("user already liked");
+      }
     } catch (error) {
       return error;
     } finally {
@@ -173,18 +193,36 @@ function myDB() {
     }
   };
 
-  myDB.addDislike = async (id) => {
+  myDB.addDislike = async (id, user) => {
     let client;
     try {
       client = new MongoClient(uri, { useUnifiedTopology: true });
       await client.connect();
       const db = client.db(beersDbName);
       const collection = db.collection("beers");
-      const result = await collection.update(
-        { _id: ObjectId(id) },
-        { $inc: { dislike: 1 } }
-      );
-      return result;
+      const likeRes = await collection.findOne({
+        _id: ObjectId(id),
+        like: user,
+      });
+      const dislikeRes = await collection.findOne({
+        _id: ObjectId(id),
+        dislike: user,
+      });
+      if (likeRes) {
+        const result = await collection.updateOne(
+          { _id: ObjectId(id) },
+          { $pull: { like: user } }
+        );
+      }
+      if (!dislikeRes && user) {
+        const result = await collection.updateOne(
+          { _id: ObjectId(id) },
+          { $push: { dislike: user } }
+        );
+      }
+      if (dislikeRes) {
+        console.log("user already disliked");
+      }
     } catch (error) {
       return error;
     } finally {
@@ -221,7 +259,6 @@ function myDB() {
       const db = client.db(usersDbName);
       const collection = db.collection("localUsers");
       let user = await collection.findOne({ username: username });
-      console.log("db result", user);
       return user;
     } finally {
       client.close();

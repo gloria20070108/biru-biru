@@ -85,8 +85,9 @@ router.get("/flavors", async (req, res) => {
 
 router.post("/addLike", async (req, res) => {
   const id = req.body.id;
+  const user = req.user.username;
   try {
-    await MyDB.addLike(id);
+    await MyDB.addLike(id, user);
     res.json({ message: "add like successfully!" });
   } catch {
     res.status(500).json({ error: err });
@@ -95,8 +96,9 @@ router.post("/addLike", async (req, res) => {
 
 router.post("/addDislike", async (req, res) => {
   const id = req.body.id;
+  const user = req.user.username;
   try {
-    await MyDB.addDislike(id);
+    await MyDB.addDislike(id, user);
     res.json({ message: "add dislike successfully!" });
   } catch {
     res.status(500).json({ error: err });
