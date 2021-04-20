@@ -161,31 +161,15 @@ function myDB() {
       await client.connect();
       const db = client.db(beersDbName);
       const collection = db.collection("beers");
-      const likeRes = await collection.findOne({
-        _id: ObjectId(id),
-        like: user,
-      });
-      const dislikeRes = await collection.findOne({
-        _id: ObjectId(id),
-        dislike: user,
-      });
-
-      //if user choose unlike before, delete the record.
-      if (dislikeRes) {
-        const result = await collection.updateOne(
-          { _id: ObjectId(id) },
-          { $pull: { dislike: user } }
-        );
-      }
-      if (!likeRes && user) {
-        const result = await collection.updateOne(
-          { _id: ObjectId(id) },
-          { $push: { like: user } }
-        );
-      }
-      if (likeRes) {
-        console.log("user already liked");
-      }
+      const updateRes = await collection.updateOne(
+        { _id: ObjectId(id) },
+        { $pull: { dislike: user } }
+      );
+      const result = await collection.updateOne(
+        { _id: ObjectId(id) },
+        { $addToSet: { like: user } }
+      );
+      console.log("update like result", result.modifiedCount);
     } catch (error) {
       return error;
     } finally {
@@ -200,29 +184,16 @@ function myDB() {
       await client.connect();
       const db = client.db(beersDbName);
       const collection = db.collection("beers");
-      const likeRes = await collection.findOne({
-        _id: ObjectId(id),
-        like: user,
-      });
-      const dislikeRes = await collection.findOne({
-        _id: ObjectId(id),
-        dislike: user,
-      });
-      if (likeRes) {
-        const result = await collection.updateOne(
-          { _id: ObjectId(id) },
-          { $pull: { like: user } }
-        );
-      }
-      if (!dislikeRes && user) {
-        const result = await collection.updateOne(
-          { _id: ObjectId(id) },
-          { $push: { dislike: user } }
-        );
-      }
-      if (dislikeRes) {
-        console.log("user already disliked");
-      }
+
+      const updateRes = await collection.updateOne(
+        { _id: ObjectId(id) },
+        { $pull: { like: user } }
+      );
+      const result = await collection.updateOne(
+        { _id: ObjectId(id) },
+        { $addToSet: { dislike: user } }
+      );
+      console.log("update dislike result", result.modifiedCount);
     } catch (error) {
       return error;
     } finally {
