@@ -6,13 +6,13 @@
 
 .home-header {
   font-size: 0.9rem;
-  width: 88%;
+  margin-bottom: 20px;
 }
 
 .selector {
   display: inline-block;
-  margin-right: 1%;
-  width: 20%;
+  margin-right: 2vh;
+  width: 30vh;
 }
 
 .filter-container,
@@ -31,5 +31,4 @@
 
 .clear-filter-link {
   display: inline-block;
-  margin-left: 10px;
 }

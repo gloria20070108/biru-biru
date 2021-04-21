@@ -31,6 +31,7 @@ function myDB() {
       // ends with "+"
       sortParam[sortOption.slice(0, -1)] = 1;
     }
+
     sortParam.name = 1;
 
     try {
@@ -163,13 +164,26 @@ function myDB() {
       const collection = db.collection("beers");
       const updateRes = await collection.updateOne(
         { _id: ObjectId(id) },
-        { $pull: { dislike: user } }
+        { $pull: { dislike: user }, $addToSet: { like: user } }
       );
-      const result = await collection.updateOne(
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.removeLike = async (id, user) => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("beers");
+      const updateRes = await collection.updateOne(
         { _id: ObjectId(id) },
-        { $addToSet: { like: user } }
+        { $pull: { like: user } }
       );
-      console.log("update like result", result.modifiedCount);
     } catch (error) {
       return error;
     } finally {
@@ -184,16 +198,30 @@ function myDB() {
       await client.connect();
       const db = client.db(beersDbName);
       const collection = db.collection("beers");
+      console.log(user);
+      const updateRes = await collection.updateOne(
+        { _id: ObjectId(id) },
+        { $pull: { like: user }, $addToSet: { dislike: user } }
+      );
+    } catch (error) {
+      return error;
+    } finally {
+      client.close();
+    }
+  };
+
+  myDB.removeDislike = async (id, user) => {
+    let client;
+    try {
+      client = new MongoClient(uri, { useUnifiedTopology: true });
+      await client.connect();
+      const db = client.db(beersDbName);
+      const collection = db.collection("beers");
 
       const updateRes = await collection.updateOne(
         { _id: ObjectId(id) },
-        { $pull: { like: user } }
+        { $pull: { dislike: user } }
       );
-      const result = await collection.updateOne(
-        { _id: ObjectId(id) },
-        { $addToSet: { dislike: user } }
-      );
-      console.log("update dislike result", result.modifiedCount);
     } catch (error) {
       return error;
     } finally {

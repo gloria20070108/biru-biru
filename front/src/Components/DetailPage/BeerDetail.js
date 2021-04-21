@@ -10,19 +10,22 @@ import "./css/BeerDetail.css";
 export default function BeerDetail({ id }) {
   const [beer, setBeer] = useState(null);
   const [user, setUser] = useState(null);
-  const [likeColor, setLikeColor] = useState("black");
-  const [dislikeColor, setDislikeColor] = useState("black");
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
 
   const fetchUser = async () => {
     const res = await fetch("/getUser");
     if (res.status === 200) {
-      setUser(await res.json());
+      const userName = await res.json();
+      setUser(userName);
+      fetchBeerById(id, userName);
     } else {
       setUser(null);
+      fetchBeerById(id, null);
     }
   };
 
-  const fetchBeerById = async (id) => {
+  const fetchBeerById = async (id, userName) => {
     const url = `/beers?id=${id}`;
     const res = await fetch(url);
 
@@ -31,6 +34,10 @@ export default function BeerDetail({ id }) {
 
       if (beerInfo) {
         setBeer(beerInfo);
+        if (userName) {
+          setIsLiked(beerInfo.like.includes(userName));
+          setIsDisliked(beerInfo.dislike.includes(userName));
+        }
       } else {
         console.error("Can not get beer by id " + id + "!");
       }
@@ -41,14 +48,11 @@ export default function BeerDetail({ id }) {
 
   useEffect(() => {
     fetchUser();
-    fetchBeerById(id);
   }, []);
 
   const clickLike = async () => {
-    setDislikeColor("black");
-    setLikeColor("blue");
     if (user) {
-      const res = await fetch("/addLike", {
+      const res = await fetch("/updateLike", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -56,23 +60,21 @@ export default function BeerDetail({ id }) {
         },
         body: JSON.stringify({
           id: id,
+          action: isLiked ? "remove" : "add",
         }),
       });
 
       if (res.status === 200) {
-        fetchBeerById(id);
+        fetchBeerById(id, user);
       } else {
-        alert("Add like failed!");
+        alert("Update like failed!");
       }
     }
   };
 
   const clickDislike = async () => {
-    setLikeColor("black");
-    setDislikeColor("blue");
-
     if (user) {
-      const res = await fetch("/addDislike", {
+      const res = await fetch("/updateDislike", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -80,11 +82,12 @@ export default function BeerDetail({ id }) {
         },
         body: JSON.stringify({
           id: id,
+          action: isDisliked ? "remove" : "add",
         }),
       });
 
       if (res.status === 200) {
-        fetchBeerById(id);
+        fetchBeerById(id, user);
       } else {
         alert("Add dislike failed!");
       }
@@ -132,33 +135,35 @@ export default function BeerDetail({ id }) {
                 </div>
               </div>
               <div className="beer-detail-info">
-                <div className="beer-detail-label">Like:</div>
-                <div className="beer-detail-value">
+                <div className="beer-like-container">
                   <i
-                    style={{ color: likeColor }}
                     className={
                       user
-                        ? "far fa-thumbs-up beer-detail-like-icon"
+                        ? isLiked
+                          ? "far fa-thumbs-up beer-detail-like-icon icon-is-clicked"
+                          : "far fa-thumbs-up beer-detail-like-icon"
                         : "far fa-thumbs-up beer-detail-like-icon-disabled"
                     }
                     onClick={clickLike}
-                  ></i>{" "}
-                  {beer.like.length}
+                  ></i>
+                  <span className={isLiked ? "icon-is-clicked" : ""}>
+                    {" " + beer.like.length}
+                  </span>
                 </div>
-              </div>
-              <div className="beer-detail-info">
-                <div className="beer-detail-label">Dislike:</div>
-                <div className="beer-detail-value">
+                <div className="beer-dislike-container">
                   <i
-                    style={{ color: dislikeColor }}
                     className={
                       user
-                        ? "far fa-thumbs-down beer-detail-dislike-icon"
+                        ? isDisliked
+                          ? "far fa-thumbs-down beer-detail-dislike-icon icon-is-clicked"
+                          : "far fa-thumbs-down beer-detail-dislike-icon"
                         : "far fa-thumbs-down beer-detail-dislike-icon-disabled"
                     }
                     onClick={clickDislike}
-                  ></i>{" "}
-                  {beer.dislike.length}
+                  ></i>
+                  <span className={isDisliked ? "icon-is-clicked" : ""}>
+                    {" " + beer.dislike.length}
+                  </span>
                 </div>
               </div>
             </div>

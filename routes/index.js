@@ -83,23 +83,33 @@ router.get("/flavors", async (req, res) => {
   }
 });
 
-router.post("/addLike", async (req, res) => {
+router.post("/updateLike", async (req, res) => {
   const id = req.body.id;
+  const action = req.body.action;
   const user = req.user.username;
   try {
-    await MyDB.addLike(id, user);
-    res.json({ message: "add like successfully!" });
+    if (action === "add") {
+      await MyDB.addLike(id, user);
+    } else {
+      await MyDB.removeLike(id, user);
+    }
+    res.json({ message: `${action} like successfully!` });
   } catch {
     res.status(500).json({ error: err });
   }
 });
 
-router.post("/addDislike", async (req, res) => {
+router.post("/updateDislike", async (req, res) => {
   const id = req.body.id;
+  const action = req.body.action;
   const user = req.user.username;
   try {
-    await MyDB.addDislike(id, user);
-    res.json({ message: "add dislike successfully!" });
+    if (action === "add") {
+      await MyDB.addDislike(id, user);
+    } else {
+      await MyDB.removeDislike(id, user);
+    }
+    res.json({ message: `${action} dislike successfully!` });
   } catch {
     res.status(500).json({ error: err });
   }

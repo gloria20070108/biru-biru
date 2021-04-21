@@ -14,21 +14,19 @@ function MyAuth() {
       new Strategy(
         { passReqToCallback: true },
         async function (req, username, password, cb) {
-          console.log("local signin...", username);
           try {
             const user = await MyDB.findByUsername(username);
             if (!user) {
               console.log("User not found");
               req.session.error = "user not found";
-              return cb(null, user);
+              return cb(null, false);
             }
             //check user password with hashed password stored in the database
             const validPassword = await bcrypt.compare(password, user.password);
-            console.log("is it valid password?");
             if (!validPassword) {
               console.log("wrong password");
               req.session.error = "wrong password";
-              return cb(null, user);
+              return cb(null, false);
             }
 
             console.log("LOGGED IN AS: " + user.username);
@@ -36,8 +34,8 @@ function MyAuth() {
               "You are successfully logged in " + user.username + "!";
             return cb(null, user);
           } catch (err) {
-            console.log(err.body);
-            return cb(err.body, user);
+            console.log("error in signin", err.body);
+            return cb(err.body, false);
           }
         }
       )
@@ -48,7 +46,6 @@ function MyAuth() {
       new Strategy(
         { passReqToCallback: true },
         async function (req, username, password, cb) {
-          console.log("local signup...", username);
           //generate salt to hash password
           const salt = await bcrypt.genSalt(10);
           password = await bcrypt.hash(password, salt);
@@ -71,7 +68,7 @@ function MyAuth() {
               return cb(null, user);
             }
           } catch (err) {
-            console.log(err.body);
+            console.log("error in signup", err.body);
             return cb(err.body, user);
           }
         }
@@ -125,7 +122,6 @@ function MyAuth() {
             return res.status(500).json(error);
           }
 
-          res.redirect("/");
           return res.json({
             message: "successfully sign in!",
           });
