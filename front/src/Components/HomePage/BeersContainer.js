@@ -7,7 +7,7 @@ import Beer from "./Beer";
 export default function BeersContainer({ beers }) {
   return (
     <div className="beers-container">
-      {beers &&
+      {Array.isArray(beers) &&
         beers.map((value, index) => {
           return <Beer key={value.name} beer={value} />;
         })}

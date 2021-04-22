@@ -155,9 +155,10 @@ export default function Comments({ id, user }) {
           }
         })()}
 
-        {comments.map((value, index) => {
-          return <SingleComment key={value.id} comment={value} />;
-        })}
+        {Array.isArray(comments) &&
+          comments.map((value, index) => {
+            return <SingleComment key={value.id} comment={value} />;
+          })}
       </div>
     </div>
   );
