@@ -27,9 +27,10 @@ export default function Top5s({ title, sortOption }) {
   return (
     <div>
       <div className="top-5s-title">{title}</div>
-      {beers.map((value, index) => {
-        return <Beer key={value.name} beer={value} />;
-      })}
+      {beers &&
+        beers.map((value, index) => {
+          return <Beer key={value.name} beer={value} />;
+        })}
     </div>
   );
 }
