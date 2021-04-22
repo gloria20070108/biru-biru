@@ -14,7 +14,7 @@ export default function Banner() {
       </div>
       <div className="banner-text">
         <div className="banner-text-row1">Welcome to</div>
-        <div className="banner-text-row2">Biru-Biru~</div>
+        <div className="banner-text-row2">BIRU-BIRU~</div>
         <div className="banner-text-row3">Share your feeling about beers</div>
       </div>
     </div>
