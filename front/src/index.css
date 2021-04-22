@@ -6,3 +6,8 @@ body {
 .container {
   max-width: initial;
 }
+
+.app {
+  margin-left: 60px;
+  margin-right: 60px;
+}
