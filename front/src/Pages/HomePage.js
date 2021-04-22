@@ -59,7 +59,18 @@ export default function HomePage() {
         )}
         <BeersContainer beers={beers} />
       </div>
-      <footer className="photo-credit">photos by Chuan Zhang</footer>
+      <footer className="photo-credit">
+        banner photo by{" "}
+        <a href="https://unsplash.com/@georgeallancox?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+          George Cox
+        </a>{" "}
+        on{" "}
+        <a href="https://unsplash.com/s/photos/beer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+          Unsplash
+        </a>
+        <br />
+        beer photos by Chuan Zhang
+      </footer>
     </div>
   );
 }

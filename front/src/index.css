@@ -2,3 +2,7 @@ body {
   font-family: "Montserrat Alternates", sans-serif;
   background: #fffafa;
 }
+
+.container {
+  max-width: initial;
+}
