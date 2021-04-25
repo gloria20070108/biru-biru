@@ -44,29 +44,31 @@ export default function HomePage() {
 
   return (
     <div>
-      <div className="app">
-        <TopBar />
-        <Banner></Banner>
-        <div className="top-5s-container">
-          <Top5s title="Most Liked" sortOption="like-"></Top5s>
-          <Top5s
-            title="Strongest"
-            subTitle="Highest ABV"
-            sortOption="abv-"
-          ></Top5s>
-          <Top5s
-            title="Chilling Options"
-            subTitle="Lowest ABV"
-            sortOption="abv+"
-          ></Top5s>
+      <main>
+        <div className="app">
+          <TopBar />
+          <Banner></Banner>
+          <div className="top-5s-container">
+            <Top5s title="Most Liked" sortOption="like-"></Top5s>
+            <Top5s
+              title="Strongest"
+              subTitle="Highest ABV"
+              sortOption="abv-"
+            ></Top5s>
+            <Top5s
+              title="Chilling Options"
+              subTitle="Lowest ABV"
+              sortOption="abv+"
+            ></Top5s>
+          </div>
+          <div className="all-beers-title">~ All Beers ~</div>
+          <HomeHeader onChange={handleSelectChanges} />
+          {beers.length === 0 && (
+            <div className="beer-not-found-msg">~ No beer found ~</div>
+          )}
+          <BeersContainer beers={beers} />
         </div>
-        <div className="all-beers-title">~ All Beers ~</div>
-        <HomeHeader onChange={handleSelectChanges} />
-        {beers.length === 0 && (
-          <div className="beer-not-found-msg">~ No beer found ~</div>
-        )}
-        <BeersContainer beers={beers} />
-      </div>
+      </main>
       <footer className="photo-credit">
         banner photo by{" "}
         <a href="https://unsplash.com/@georgeallancox?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
