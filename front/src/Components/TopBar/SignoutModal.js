@@ -24,10 +24,12 @@ export default function SignoutModal({ show, onHide }) {
     }
   };
   return (
-    <div>
+    <main>
       <Modal size="md" show={show} onHide={onHide}>
         <Modal.Header>
-          <Modal.Title>Sign Out</Modal.Title>
+          <Modal.Title>
+            <h1 className="modal-title">Sign Out</h1>
+          </Modal.Title>
           <button
             type="button"
             className="btn-close"
@@ -52,7 +54,7 @@ export default function SignoutModal({ show, onHide }) {
           </form>
         </Modal.Body>
       </Modal>
-    </div>
+    </main>
   );
 }
 

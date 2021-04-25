@@ -36,10 +36,12 @@ export default function SignupModal({ show, onHide }) {
   };
 
   return (
-    <div>
+    <main>
       <Modal size="md" show={show} onHide={onHide}>
         <Modal.Header>
-          <Modal.Title>Sign Up</Modal.Title>
+          <Modal.Title>
+            <h1 className="modal-title">Sign Up</h1>
+          </Modal.Title>
           <button
             aria-label="signup"
             type="button"
@@ -114,7 +116,7 @@ export default function SignupModal({ show, onHide }) {
           </form>
         </Modal.Body>
       </Modal>
-    </div>
+    </main>
   );
 }
 

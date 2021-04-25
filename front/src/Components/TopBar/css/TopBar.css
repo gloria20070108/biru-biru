@@ -25,6 +25,10 @@
   vertical-align: middle;
 }
 
+.modal-title {
+  font-size: 1.75rem;
+}
+
 .form-control,
 .form-check {
   margin-top: 10px;
