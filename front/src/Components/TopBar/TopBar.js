@@ -51,7 +51,7 @@ export default function TopBar() {
       <header>
         <nav className="navbar navbar-expand-md navbar-light fixed-top">
           <div className="container-fluid">
-            <span className="navbar-brand">Biru-Biru~</span>
+            <h1 className="navbar-brand">Biru-Biru~</h1>
             <div class="to-right">
               {isFetchingUser ? (
                 <div></div>

@@ -14,7 +14,7 @@ export default function Beer({ beer }) {
           <img
             className="beer-img"
             src={process.env.PUBLIC_URL + "/images/" + beer.img}
-            alt={beer.name}
+            alt=""
           />
           <div class="beer-img-text-container">
             <div class="beer-img-text">{beer.name}</div>
