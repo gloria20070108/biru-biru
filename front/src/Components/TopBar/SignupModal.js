@@ -5,7 +5,6 @@ import { Modal } from "react-bootstrap";
 
 export default function SignupModal({ show, onHide }) {
   const [username, setUsername] = useState("");
-  const [confirmUsername, setConfirmUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [ageChecked, setAgeChecked] = useState(false);
@@ -13,7 +12,7 @@ export default function SignupModal({ show, onHide }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (username !== confirmUsername || password !== confirmPassword) {
+    if (password !== confirmPassword) {
       setFlag(true);
       return;
     }
@@ -40,7 +39,7 @@ export default function SignupModal({ show, onHide }) {
     <div>
       <Modal size="md" show={show} onHide={onHide}>
         <Modal.Header>
-          <Modal.Title>Signup</Modal.Title>
+          <Modal.Title>Sign Up</Modal.Title>
           <button
             type="button"
             className="btn-close"
@@ -58,16 +57,6 @@ export default function SignupModal({ show, onHide }) {
               placeholder="New Username"
               onChange={(e) => {
                 setUsername(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              name="confirm-username"
-              value={confirmUsername}
-              className="form-control text-content"
-              placeholder="Confirm Username"
-              onChange={(e) => {
-                setConfirmUsername(e.target.value);
               }}
             />
             <input
@@ -114,7 +103,7 @@ export default function SignupModal({ show, onHide }) {
               className="w-100 btn btn-lg btn-primary sign-out-btn"
               type="submit"
             >
-              Signup
+              Sign Up
             </button>
           </form>
         </Modal.Body>

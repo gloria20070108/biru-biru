@@ -48,9 +48,17 @@ export default function HomePage() {
         <TopBar />
         <Banner></Banner>
         <div className="top-5s-container">
-          <Top5s title="Most Popular" sortOption="like-"></Top5s>
-          <Top5s title="Strongest" sortOption="abv-"></Top5s>
-          <Top5s title="Chilling Options" sortOption="abv+"></Top5s>
+          <Top5s title="Most Liked" sortOption="like-"></Top5s>
+          <Top5s
+            title="Strongest"
+            subTitle="Highest ABV"
+            sortOption="abv-"
+          ></Top5s>
+          <Top5s
+            title="Chilling Options"
+            subTitle="Lowest ABV"
+            sortOption="abv+"
+          ></Top5s>
         </div>
         <div className="all-beers-title">~ All Beers ~</div>
         <HomeHeader onChange={handleSelectChanges} />

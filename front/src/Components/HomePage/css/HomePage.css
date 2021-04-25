@@ -5,8 +5,9 @@
 
 .all-beers-title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .beer-not-found-msg {

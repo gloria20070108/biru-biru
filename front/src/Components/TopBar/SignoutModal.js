@@ -27,7 +27,7 @@ export default function SignoutModal({ show, onHide }) {
     <div>
       <Modal size="md" show={show} onHide={onHide}>
         <Modal.Header>
-          <Modal.Title>Signout</Modal.Title>
+          <Modal.Title>Sign Out</Modal.Title>
           <button
             type="button"
             className="btn-close"
@@ -47,7 +47,7 @@ export default function SignoutModal({ show, onHide }) {
               className="w-100 btn btn-lg btn-success sign-out-btn"
               type="submit"
             >
-              Signout
+              Sign Out
             </button>
           </form>
         </Modal.Body>

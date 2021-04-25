@@ -6,7 +6,7 @@ import Beer from "./Beer";
 
 import "./css/Top5s.css";
 
-export default function Top5s({ title, sortOption }) {
+export default function Top5s({ title, subTitle, sortOption }) {
   const [beers, setBeers] = useState([]);
   const fetchBeers = async () => {
     const url = `/beers?sortOption=${sortOption}&limit=5`;
@@ -26,7 +26,10 @@ export default function Top5s({ title, sortOption }) {
 
   return (
     <div>
-      <div className="top-5s-title">{title}</div>
+      <div className="top-5s-title">
+        <span>{title}</span>
+        {subTitle && <span class="top-5s-sub-title">( {subTitle} )</span>}
+      </div>
       {Array.isArray(beers) &&
         beers.map((value, index) => {
           return <Beer key={value.name} beer={value} />;
@@ -37,5 +40,6 @@ export default function Top5s({ title, sortOption }) {
 
 Top5s.propTypes = {
   title: PropTypes.string.isRequired,
+  subTitle: PropTypes.string,
   sortOption: PropTypes.string.isRequired,
 };

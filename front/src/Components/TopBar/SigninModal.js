@@ -33,7 +33,7 @@ export default function SigninModal({ show, onHide }) {
     <div>
       <Modal size="md" show={show} onHide={onHide}>
         <Modal.Header>
-          <Modal.Title>Signin</Modal.Title>
+          <Modal.Title>Sign In</Modal.Title>
           <button
             type="button"
             className="btn-close"
@@ -87,7 +87,7 @@ export default function SigninModal({ show, onHide }) {
               className="w-100 btn btn-lg btn-success sign-out-btn"
               type="submit"
             >
-              Signin
+              Sign In
             </button>
           </form>
         </Modal.Body>

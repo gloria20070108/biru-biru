@@ -61,13 +61,13 @@ export default function TopBar() {
                     className="btn btn-outline-success top-bar-btn"
                     onClick={() => setShowSigninModal(true)}
                   >
-                    Signin
+                    Sign In
                   </button>
                   <button
                     className="btn btn-outline-primary top-bar-btn"
                     onClick={() => setShowSignupModal(true)}
                   >
-                    Signup
+                    Sign Up
                   </button>
                 </div>
               ) : (
@@ -77,7 +77,7 @@ export default function TopBar() {
                     className="btn btn-outline-success top-bar-btn"
                     onClick={() => setShowSignoutModal(true)}
                   >
-                    Signout
+                    Sign Out
                   </button>
                 </div>
               )}

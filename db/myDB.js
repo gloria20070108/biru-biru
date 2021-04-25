@@ -198,7 +198,6 @@ function myDB() {
       await client.connect();
       const db = client.db(beersDbName);
       const collection = db.collection("beers");
-      console.log(user);
       const updateRes = await collection.updateOne(
         { _id: ObjectId(id) },
         { $pull: { like: user }, $addToSet: { dislike: user } }

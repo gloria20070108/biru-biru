@@ -135,36 +135,43 @@ export default function BeerDetail({ id }) {
                 </div>
               </div>
               <div className="beer-detail-info">
-                <div className="beer-like-container">
-                  <i
-                    className={
-                      user
-                        ? isLiked
-                          ? "far fa-thumbs-up beer-detail-like-icon icon-is-clicked"
-                          : "far fa-thumbs-up beer-detail-like-icon"
-                        : "far fa-thumbs-up beer-detail-like-icon-disabled"
-                    }
-                    onClick={clickLike}
-                  ></i>
-                  <span className={isLiked ? "icon-is-clicked" : ""}>
-                    {" " + beer.like.length}
-                  </span>
-                </div>
-                <div className="beer-dislike-container">
-                  <i
-                    className={
-                      user
-                        ? isDisliked
-                          ? "far fa-thumbs-down beer-detail-dislike-icon icon-is-clicked"
-                          : "far fa-thumbs-down beer-detail-dislike-icon"
-                        : "far fa-thumbs-down beer-detail-dislike-icon-disabled"
-                    }
-                    onClick={clickDislike}
-                  ></i>
-                  <span className={isDisliked ? "icon-is-clicked" : ""}>
-                    {" " + beer.dislike.length}
-                  </span>
-                </div>
+                {user ? (
+                  <div>
+                    <button
+                      className={
+                        isLiked
+                          ? "btn btn-outline-secondary beer-like-btn btn-clicked"
+                          : "btn btn-outline-secondary beer-like-btn"
+                      }
+                      onClick={clickLike}
+                    >
+                      <i className="far fa-thumbs-up"></i>
+                      <span>{" " + beer.like.length}</span>
+                    </button>
+                    <button
+                      className={
+                        isDisliked
+                          ? "btn btn-outline-secondary beer-dislike-btn btn-clicked"
+                          : "btn btn-outline-secondary beer-dislike-btn"
+                      }
+                      onClick={clickDislike}
+                    >
+                      <i className="far fa-thumbs-down"></i>
+                      <span>{" " + beer.dislike.length}</span>
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="beer-like-icon">
+                      <i className="far fa-thumbs-up"></i>
+                      <span>{" " + beer.like.length}</span>
+                    </div>
+                    <div className="beer-dislike-icon">
+                      <i className="far fa-thumbs-down"></i>
+                      <span>{" " + beer.dislike.length}</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

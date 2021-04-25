@@ -95,7 +95,7 @@ export default function Comments({ id, user }) {
 
   return (
     <div>
-      <div className="comments-header">Comments</div>
+      <div className="comments-header">Reviews</div>
       {user && (
         <div className="comment-input">
           <textarea
@@ -150,7 +150,9 @@ export default function Comments({ id, user }) {
             );
           } else {
             return (
-              <div className="no-comment-msg">~ No Comment for this beer ~</div>
+              <div className="no-comment-msg">
+                ~ No reviews for this beer yet ~
+              </div>
             );
           }
         })()}

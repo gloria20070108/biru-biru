@@ -22,7 +22,7 @@
 
 .beer-detail-info-container {
   display: inline-block;
-  margin: 30px;
+  margin: 50px 30px;
   position: absolute;
   font-size: 1.25rem;
 }
@@ -37,29 +37,30 @@
   margin-left: 10px;
 }
 
-.beer-like-container,
-.beer-dislike-container {
+.beer-like-icon,
+.beer-dislike-icon,
+.beer-like-btn,
+.beer-dislike-btn {
   display: inline-block;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 40px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
   font-size: 1.25rem;
+  width: 125px;
 }
 
-.beer-detail-like-icon,
-.beer-detail-dislike-icon {
-  cursor: pointer;
+.beer-like-btn,
+.beer-dislike-btn {
+  border-width: 2px;
+  color: #7e7e7e;
+  border-color: #7e7e7e;
 }
 
-.beer-detail-like-icon-disabled,
-.beer-detail-dislike-icon-disabled {
-  cursor: default;
-}
-
-.beer-detail-dislike-icon {
-  vertical-align: middle;
-}
-
-.icon-is-clicked {
-  color: blue;
+.btn-clicked,
+.beer-like-btn:hover,
+.beer-dislike-btn:hover {
+  color: #fffafa;
+  background: #7e7e7e;
+  border-color: #7e7e7e;
 }
