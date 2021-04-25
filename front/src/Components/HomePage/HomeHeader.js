@@ -108,6 +108,7 @@ export default function HomeHeader(props) {
         <div className="filter-container">
           <div className="filter-text">Filter by:</div>
           <Select
+            aria-label="styles"
             className="selector"
             options={styles}
             onChange={(value) => {
@@ -124,6 +125,7 @@ export default function HomeHeader(props) {
             value={selectedStyle}
           />
           <Select
+            aria-label="countries"
             className="selector"
             options={countries}
             onChange={(value) => {
@@ -140,6 +142,7 @@ export default function HomeHeader(props) {
             value={selectedCountry}
           />
           <Select
+            aria-label="flavors"
             className="selector"
             options={flavors}
             onChange={(value) => {
@@ -164,6 +167,7 @@ export default function HomeHeader(props) {
         <div className="sort-container">
           <div className="sort-text">Sorted by:</div>
           <Select
+            aria-label="mostliked"
             className="selector"
             options={sortOptions}
             onChange={(value) => {
