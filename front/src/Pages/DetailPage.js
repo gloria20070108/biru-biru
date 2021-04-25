@@ -10,10 +10,12 @@ export default function DetailPage() {
 
   return (
     <div>
-      <div className="app">
-        <TopBar />
-        <BeerDetail id={id} />
-      </div>
+      <main>
+        <div className="app">
+          <TopBar />
+          <BeerDetail id={id} />
+        </div>
+      </main>
       <footer className="photo-credit">photo by Chuan Zhang</footer>
     </div>
   );
