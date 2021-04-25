@@ -99,14 +99,17 @@ export default function Comments({ id, user }) {
       {user && (
         <div className="comment-input">
           <textarea
+            arial-label="comments"
             className="comment-input-textarea"
             name="comment-input"
             cols="30"
             rows="3"
             value={newComment}
+            placeholder="Add new reviews"
             onChange={handleNewCommentChange}
           ></textarea>
           <button
+            arial-label="submit"
             className="btn btn-sm btn-success submit-btn"
             disabled={newComment === ""}
             onClick={submitComment}
@@ -114,6 +117,7 @@ export default function Comments({ id, user }) {
             Submit
           </button>
           <button
+            arial-label="cancel"
             className="btn btn-sm btn-secondary cancel-btn"
             disabled={newComment === ""}
             onClick={resetComment}

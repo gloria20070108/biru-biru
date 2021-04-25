@@ -41,6 +41,7 @@ export default function SignupModal({ show, onHide }) {
         <Modal.Header>
           <Modal.Title>Sign Up</Modal.Title>
           <button
+            aria-label="signup"
             type="button"
             className="btn-close"
             onClick={onHide}
@@ -50,6 +51,7 @@ export default function SignupModal({ show, onHide }) {
         <Modal.Body>
           <form onSubmit={handleSubmit}>
             <input
+              aria-label="username"
               type="text"
               name="username"
               value={username}
@@ -60,6 +62,7 @@ export default function SignupModal({ show, onHide }) {
               }}
             />
             <input
+              arial-label="password"
               type="password"
               name="password"
               value={password}
@@ -70,6 +73,7 @@ export default function SignupModal({ show, onHide }) {
               }}
             />
             <input
+              arial-label="passwordconfirm"
               type="password"
               name="confirm-password"
               value={confirmPassword}
@@ -81,6 +85,7 @@ export default function SignupModal({ show, onHide }) {
             />
             <div className="form-check">
               <input
+                arial-label="agecheck"
                 type="checkbox"
                 className="form-check-input"
                 checked={ageChecked}
@@ -99,6 +104,7 @@ export default function SignupModal({ show, onHide }) {
               </div>
             )}
             <button
+              arial-label="submit"
               disabled={!username || !password || !ageChecked}
               className="w-100 btn btn-lg btn-primary sign-out-btn"
               type="submit"

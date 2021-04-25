@@ -11,7 +11,7 @@ export default function DetailHeader({ text }) {
     <div className="detail-header">
       <div>
         <Link to="/">
-          <i class="fas fa-arrow-left go-back-link"></i>
+          <i aria-label="goback" class="fas fa-arrow-left go-back-link"></i>
         </Link>
         <div class="beer-detail-title">{text}</div>
       </div>

@@ -49,6 +49,7 @@ export default function SigninModal({ show, onHide }) {
               value={username}
               className="form-control"
               placeholder="Username"
+              aria-label="username"
               onChange={(e) => {
                 setUsername(e.target.value);
               }}
@@ -59,6 +60,7 @@ export default function SigninModal({ show, onHide }) {
               value={password}
               className="form-control"
               placeholder="Password"
+              aria-label="password"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
@@ -68,6 +70,7 @@ export default function SigninModal({ show, onHide }) {
                 type="checkbox"
                 className="form-check-input"
                 checked={ageChecked}
+                aria-label="check"
                 onChange={(e) => {
                   setAgeChecked(e.target.checked);
                 }}
@@ -84,6 +87,7 @@ export default function SigninModal({ show, onHide }) {
             )}
             <button
               disabled={!username || !password || !ageChecked}
+              aria-label="submit"
               className="w-100 btn btn-lg btn-success sign-out-btn"
               type="submit"
             >
