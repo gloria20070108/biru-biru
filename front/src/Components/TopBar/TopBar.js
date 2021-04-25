@@ -58,13 +58,13 @@ export default function TopBar() {
               ) : !user ? (
                 <div>
                   <button
-                    className="btn btn-outline-success top-bar-btn"
+                    className="btn btn-success top-bar-btn"
                     onClick={() => setShowSigninModal(true)}
                   >
                     Sign In
                   </button>
                   <button
-                    className="btn btn-outline-primary top-bar-btn"
+                    className="btn btn-primary top-bar-btn"
                     onClick={() => setShowSignupModal(true)}
                   >
                     Sign Up
@@ -74,7 +74,7 @@ export default function TopBar() {
                 <div>
                   <div className="greeting">Cheers {user}!</div>
                   <button
-                    className="btn btn-outline-success top-bar-btn"
+                    className="btn btn-success top-bar-btn"
                     onClick={() => setShowSignoutModal(true)}
                   >
                     Sign Out

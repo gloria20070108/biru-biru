@@ -1,12 +1,12 @@
 .navbar {
   background-color: #e5f5f5;
   height: 70px;
-  margin-top: 10px;
 }
 
 .navbar-brand {
   font-weight: bolder;
   font-size: 1.65rem;
+  margin-top: 10px;
 }
 
 .signout-msg {
@@ -18,17 +18,6 @@
   display: inline-block;
   margin-left: 10px;
   width: 130px;
-}
-
-.btn-outline-success {
-  color: #105b37;
-  border-color: #105b37;
-}
-
-.btn-outline-success:hover {
-  color: #e5f5f5;
-  background: #105b37;
-  border-color: #105b37;
 }
 
 .greeting {
