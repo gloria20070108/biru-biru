@@ -27,7 +27,7 @@ export default function Top5s({ title, subTitle, sortOption }) {
   return (
     <div>
       <div className="top-5s-title">
-        <span>{title}</span>
+        <h1>{title}</h1>
         {subTitle && <span class="top-5s-sub-title">( {subTitle} )</span>}
       </div>
       {Array.isArray(beers) &&
