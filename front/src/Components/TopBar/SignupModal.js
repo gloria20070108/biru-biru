@@ -36,87 +36,85 @@ export default function SignupModal({ show, onHide }) {
   };
 
   return (
-    <main>
-      <Modal size="md" show={show} onHide={onHide}>
-        <Modal.Header>
-          <Modal.Title>
-            <h1 className="modal-title">Sign Up</h1>
-          </Modal.Title>
-          <button
-            aria-label="signup"
-            type="button"
-            className="btn-close"
-            onClick={onHide}
-            aria-label="Close"
-          ></button>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleSubmit}>
+    <Modal size="md" show={show} onHide={onHide}>
+      <Modal.Header>
+        <Modal.Title>
+          <h1 className="modal-title">Sign Up</h1>
+        </Modal.Title>
+        <button
+          aria-label="signup"
+          type="button"
+          className="btn-close"
+          onClick={onHide}
+          aria-label="Close"
+        ></button>
+      </Modal.Header>
+      <Modal.Body>
+        <form onSubmit={handleSubmit}>
+          <input
+            aria-label="username"
+            type="text"
+            name="username"
+            value={username}
+            className="form-control text-content"
+            placeholder="New Username"
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
+          <input
+            arial-label="password"
+            type="password"
+            name="password"
+            value={password}
+            className="form-control"
+            placeholder="New Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <input
+            arial-label="passwordconfirm"
+            type="password"
+            name="confirm-password"
+            value={confirmPassword}
+            className="form-control"
+            placeholder="Confirm Password"
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+            }}
+          />
+          <div className="form-check">
             <input
-              aria-label="username"
-              type="text"
-              name="username"
-              value={username}
-              className="form-control text-content"
-              placeholder="New Username"
+              arial-label="agecheck"
+              type="checkbox"
+              className="form-check-input"
+              checked={ageChecked}
               onChange={(e) => {
-                setUsername(e.target.value);
+                setAgeChecked(e.target.checked);
               }}
+              required="required"
             />
-            <input
-              arial-label="password"
-              type="password"
-              name="password"
-              value={password}
-              className="form-control"
-              placeholder="New Password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-            <input
-              arial-label="passwordconfirm"
-              type="password"
-              name="confirm-password"
-              value={confirmPassword}
-              className="form-control"
-              placeholder="Confirm Password"
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
-            />
-            <div className="form-check">
-              <input
-                arial-label="agecheck"
-                type="checkbox"
-                className="form-check-input"
-                checked={ageChecked}
-                onChange={(e) => {
-                  setAgeChecked(e.target.checked);
-                }}
-                required="required"
-              />
-              <div className="form-check-label" for="agecheck">
-                I am at age 21 or older.
-              </div>
+            <div className="form-check-label" for="agecheck">
+              I am at age 21 or older.
             </div>
-            {flag && (
-              <div className="errorMsg">
-                Can not sign up the user, please try again.
-              </div>
-            )}
-            <button
-              arial-label="submit"
-              disabled={!username || !password || !ageChecked}
-              className="w-100 btn btn-lg btn-primary sign-out-btn"
-              type="submit"
-            >
-              Sign Up
-            </button>
-          </form>
-        </Modal.Body>
-      </Modal>
-    </main>
+          </div>
+          {flag && (
+            <div className="errorMsg">
+              Can not sign up the user, please try again.
+            </div>
+          )}
+          <button
+            arial-label="submit"
+            disabled={!username || !password || !ageChecked}
+            className="w-100 btn btn-lg btn-primary sign-out-btn"
+            type="submit"
+          >
+            Sign Up
+          </button>
+        </form>
+      </Modal.Body>
+    </Modal>
   );
 }
 

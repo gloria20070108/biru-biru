@@ -30,75 +30,73 @@ export default function SigninModal({ show, onHide }) {
   };
 
   return (
-    <main>
-      <Modal size="md" show={show} onHide={onHide}>
-        <Modal.Header>
-          <Modal.Title>
-            <h1>Sign In</h1>
-          </Modal.Title>
-          <button
-            type="button"
-            className="btn-close"
-            onClick={onHide}
-            aria-label="Close"
-          ></button>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleSubmit}>
+    <Modal size="md" show={show} onHide={onHide}>
+      <Modal.Header>
+        <Modal.Title>
+          <h1 className="modal-title">Sign In</h1>
+        </Modal.Title>
+        <button
+          type="button"
+          className="btn-close"
+          onClick={onHide}
+          aria-label="Close"
+        ></button>
+      </Modal.Header>
+      <Modal.Body>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="username"
+            value={username}
+            className="form-control"
+            placeholder="Username"
+            aria-label="username"
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            className="form-control"
+            placeholder="Password"
+            aria-label="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <div className="form-check">
             <input
-              type="text"
-              name="username"
-              value={username}
-              className="form-control"
-              placeholder="Username"
-              aria-label="username"
+              type="checkbox"
+              className="form-check-input"
+              checked={ageChecked}
+              aria-label="check"
               onChange={(e) => {
-                setUsername(e.target.value);
+                setAgeChecked(e.target.checked);
               }}
+              required="required"
             />
-            <input
-              type="password"
-              name="password"
-              value={password}
-              className="form-control"
-              placeholder="Password"
-              aria-label="password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                checked={ageChecked}
-                aria-label="check"
-                onChange={(e) => {
-                  setAgeChecked(e.target.checked);
-                }}
-                required="required"
-              />
-              <div className="form-check-label" for="agecheck">
-                I am at age 21 or older.
-              </div>
+            <div className="form-check-label" for="agecheck">
+              I am at age 21 or older.
             </div>
-            {flag && (
-              <div className="errorMsg">
-                Can not sign in the user, please try again.
-              </div>
-            )}
-            <button
-              disabled={!username || !password || !ageChecked}
-              aria-label="submit"
-              className="w-100 btn btn-lg btn-success sign-out-btn"
-              type="submit"
-            >
-              Sign In
-            </button>
-          </form>
-        </Modal.Body>
-      </Modal>
-    </main>
+          </div>
+          {flag && (
+            <div className="errorMsg">
+              Can not sign in the user, please try again.
+            </div>
+          )}
+          <button
+            disabled={!username || !password || !ageChecked}
+            aria-label="submit"
+            className="w-100 btn btn-lg btn-success sign-out-btn"
+            type="submit"
+          >
+            Sign In
+          </button>
+        </form>
+      </Modal.Body>
+    </Modal>
   );
 }
 
