@@ -36,10 +36,17 @@ export default function SignupModal({ show, onHide }) {
   };
 
   return (
-    <Modal size="md" show={show} onHide={onHide}>
+    <Modal
+      size="md"
+      show={show}
+      onHide={onHide}
+      aria-labelledby="sign-up-modal-title"
+    >
       <Modal.Header>
         <Modal.Title>
-          <h1 className="modal-title">Sign Up</h1>
+          <h1 className="modal-title" id="sign-up-modal-title">
+            Sign Up
+          </h1>
         </Modal.Title>
         <button
           aria-label="signup"
@@ -63,7 +70,7 @@ export default function SignupModal({ show, onHide }) {
             }}
           />
           <input
-            arial-label="password"
+            aria-label="password"
             type="password"
             name="password"
             value={password}
@@ -74,7 +81,7 @@ export default function SignupModal({ show, onHide }) {
             }}
           />
           <input
-            arial-label="passwordconfirm"
+            aria-label="passwordconfirm"
             type="password"
             name="confirm-password"
             value={confirmPassword}
@@ -86,7 +93,7 @@ export default function SignupModal({ show, onHide }) {
           />
           <div className="form-check">
             <input
-              arial-label="agecheck"
+              aria-label="agecheck"
               type="checkbox"
               className="form-check-input"
               checked={ageChecked}

@@ -30,10 +30,17 @@ export default function SigninModal({ show, onHide }) {
   };
 
   return (
-    <Modal size="md" show={show} onHide={onHide}>
+    <Modal
+      size="md"
+      show={show}
+      onHide={onHide}
+      aria-labelledby="sign-in-modal-title"
+    >
       <Modal.Header>
         <Modal.Title>
-          <h1 className="modal-title">Sign In</h1>
+          <h1 className="modal-title" id="sign-in-modal-title">
+            Sign In
+          </h1>
         </Modal.Title>
         <button
           type="button"

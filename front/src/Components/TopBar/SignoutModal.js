@@ -24,10 +24,17 @@ export default function SignoutModal({ show, onHide }) {
     }
   };
   return (
-    <Modal size="md" show={show} onHide={onHide}>
+    <Modal
+      size="md"
+      show={show}
+      onHide={onHide}
+      aria-labelledby="sign-out-modal-title"
+    >
       <Modal.Header>
         <Modal.Title>
-          <h1 className="modal-title">Sign Out</h1>
+          <h1 className="modal-title" id="sign-out-modal-title">
+            Sign Out
+          </h1>
         </Modal.Title>
         <button
           type="button"
