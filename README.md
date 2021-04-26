@@ -1,8 +1,10 @@
 # biru-biru
 
+version v2
+
 Project 3 of [CS5610](https://johnguerra.co/classes/webDevelopment_spring_2021/)
 
-Web page: https://biru-biru.herokuapp.com/
+Web page: https://biru-biru-v2.herokuapp.com/
 
 ## Author
 
@@ -40,22 +42,30 @@ run `yarn start`
 Check `http://localhost:3001`
 
 ## Demo
-https://youtu.be/yDSnraaUNxM
+
 
 ## Screen shots
 
-### sign in page
-<img width="1243" alt="Screen Shot 2021-04-12 at 5 21 45 PM" src="https://user-images.githubusercontent.com/20634257/114479015-66708200-9bb4-11eb-85f2-699baf84bd45.png">
 
-### sign up page
-<img width="1251" alt="Screen Shot 2021-04-12 at 5 22 43 PM" src="https://user-images.githubusercontent.com/20634257/114479036-75efcb00-9bb4-11eb-96d1-ce13db2b7ea0.png">
+
+
 
 ### home page
-<img width="1250" alt="Screen Shot 2021-04-12 at 5 25 49 PM" src="https://user-images.githubusercontent.com/20634257/114479058-81db8d00-9bb4-11eb-857e-4e1583cf65ae.png">
+<img width="1588" alt="Screen Shot 2021-04-26 at 8 34 54 AM" src="https://user-images.githubusercontent.com/20634257/116110256-5fdd1280-a66a-11eb-9bae-c7f8d799668a.png">
 
 ### detail page
-<img width="1248" alt="Screen Shot 2021-04-12 at 5 26 20 PM" src="https://user-images.githubusercontent.com/20634257/114479068-899b3180-9bb4-11eb-9a70-2e83e220e246.png">
+<img width="1276" alt="Screen Shot 2021-04-26 at 8 36 34 AM" src="https://user-images.githubusercontent.com/20634257/116110468-9155de00-a66a-11eb-808e-2b0b909689f3.png">
 
-### comment pagination
-<img width="1245" alt="Screen Shot 2021-04-12 at 5 26 48 PM" src="https://user-images.githubusercontent.com/20634257/114479082-94ee5d00-9bb4-11eb-8ffb-2a8fb08f754b.png">
+### sign up
+<img width="1295" alt="Screen Shot 2021-04-26 at 8 36 01 AM" src="https://user-images.githubusercontent.com/20634257/116110480-94e96500-a66a-11eb-9745-1d25c5489b68.png">
+
+### sign in
+<img width="1282" alt="Screen Shot 2021-04-26 at 8 35 52 AM" src="https://user-images.githubusercontent.com/20634257/116110488-974bbf00-a66a-11eb-9f55-100534029203.png">
+
+### reviews
+<img width="1266" alt="Screen Shot 2021-04-26 at 8 36 47 AM" src="https://user-images.githubusercontent.com/20634257/116110504-9adf4600-a66a-11eb-8a84-245a586c422b.png">
+
+
+
+
 
