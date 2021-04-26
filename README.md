@@ -1,10 +1,14 @@
-# biru-biru
+# biru-biru~
 
 version v2
 
 Project 3 of [CS5610](https://johnguerra.co/classes/webDevelopment_spring_2021/)
 
 Web page: https://biru-biru-v2.herokuapp.com/
+
+## Project Objective
+
+A web app allows user to share the feeling of beers by adding reviews or like/dislike.
 
 ## Author
 
