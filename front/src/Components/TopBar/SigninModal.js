@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Modal } from "react-bootstrap";
 
-export default function SigninModal({ show, onHide }) {
+export default function SigninModal({ show, onHide, mainRef }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [ageChecked, setAgeChecked] = useState(false);
@@ -35,6 +35,7 @@ export default function SigninModal({ show, onHide }) {
       show={show}
       onHide={onHide}
       aria-labelledby="sign-in-modal-title"
+      container={mainRef.current}
     >
       <Modal.Header>
         <Modal.Title>

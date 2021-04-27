@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import TopBar from "../Components/TopBar/TopBar";
 
@@ -11,6 +11,7 @@ import "../Components/HomePage/css/HomePage.css";
 
 export default function HomePage() {
   const [beers, setBeers] = useState([]);
+  const mainRef = useRef();
 
   const fetchBeers = async (options) => {
     let params = "";
@@ -44,9 +45,9 @@ export default function HomePage() {
 
   return (
     <div>
-      <main>
+      <main id="main" ref={mainRef}>
         <div className="app">
-          <TopBar />
+          <TopBar mainRef={mainRef} />
           <Banner></Banner>
           <div className="top-5s-container">
             <Top5s title="Most Liked" sortOption="like-"></Top5s>

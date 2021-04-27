@@ -6,7 +6,7 @@ import SignoutModal from "./SignoutModal";
 
 import "./css/TopBar.css";
 
-export default function TopBar() {
+export default function TopBar({ mainRef }) {
   const [showSigninModal, setShowSigninModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showSignoutModal, setShowSignoutModal] = useState(false);
@@ -35,18 +35,21 @@ export default function TopBar() {
         onHide={() => {
           setShowSigninModal(false);
         }}
+        mainRef={mainRef}
       />
       <SignupModal
         show={showSignupModal}
         onHide={() => {
           setShowSignupModal(false);
         }}
+        mainRef={mainRef}
       />
       <SignoutModal
         show={showSignoutModal}
         onHide={() => {
           setShowSignoutModal(false);
         }}
+        mainRef={mainRef}
       />
       <header>
         <nav className="navbar navbar-expand-md navbar-light fixed-top">
@@ -88,3 +91,5 @@ export default function TopBar() {
     </div>
   );
 }
+
+// TODO: check for proptypes of mainRef
