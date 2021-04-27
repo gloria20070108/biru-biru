@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -7,12 +7,13 @@ import BeerDetail from "../Components/DetailPage/BeerDetail";
 
 export default function DetailPage() {
   const { id } = useParams();
+  const detailMainRef = useRef();
 
   return (
     <div>
-      <main>
+      <main id="detail-main" ref={detailMainRef}>
         <div className="app">
-          <TopBar />
+          <TopBar mainRef={detailMainRef} />
           <BeerDetail id={id} />
         </div>
       </main>
