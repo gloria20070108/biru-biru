@@ -35,6 +35,10 @@
   margin-bottom: 10px;
 }
 
+.form-check-label {
+  cursor: pointer;
+}
+
 .errorMsg {
   color: white;
   background: red;

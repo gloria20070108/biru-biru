@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import PropTypes from "prop-types";
+
 import SigninModal from "./SigninModal";
 import SignupModal from "./SignupModal";
 import SignoutModal from "./SignoutModal";
@@ -92,4 +94,6 @@ export default function TopBar({ mainRef }) {
   );
 }
 
-// TODO: check for proptypes of mainRef
+TopBar.propTypes = {
+  mainRef: PropTypes.object.isRequired,
+};

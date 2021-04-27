@@ -67,4 +67,5 @@ export default function SignoutModal({ show, onHide, mainRef }) {
 SignoutModal.propTypes = {
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
+  mainRef: PropTypes.object.isRequired,
 };

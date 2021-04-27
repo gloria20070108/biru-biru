@@ -103,7 +103,13 @@ export default function SignupModal({ show, onHide, mainRef }) {
               }}
               required="required"
             />
-            <div className="form-check-label" for="agecheck">
+            <div
+              className="form-check-label"
+              for="agecheck"
+              onClick={() => {
+                setAgeChecked(!ageChecked);
+              }}
+            >
               I am at age 21 or older.
             </div>
           </div>
@@ -129,4 +135,5 @@ export default function SignupModal({ show, onHide, mainRef }) {
 SignupModal.propTypes = {
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
+  mainRef: PropTypes.object.isRequired,
 };
