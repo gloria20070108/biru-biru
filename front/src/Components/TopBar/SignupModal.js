@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Modal } from "react-bootstrap";
 
-export default function SignupModal({ show, onHide }) {
+export default function SignupModal({ show, onHide, mainRef }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -41,6 +41,7 @@ export default function SignupModal({ show, onHide }) {
       show={show}
       onHide={onHide}
       aria-labelledby="sign-up-modal-title"
+      container={mainRef.current}
     >
       <Modal.Header>
         <Modal.Title>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Modal } from "react-bootstrap";
 
-export default function SignoutModal({ show, onHide }) {
+export default function SignoutModal({ show, onHide, mainRef }) {
   const [flag, setFlag] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -29,6 +29,7 @@ export default function SignoutModal({ show, onHide }) {
       show={show}
       onHide={onHide}
       aria-labelledby="sign-out-modal-title"
+      container={mainRef.current}
     >
       <Modal.Header>
         <Modal.Title>
