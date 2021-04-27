@@ -69,7 +69,3 @@ Check `http://localhost:3001`
 ### reviews
 <img width="1266" alt="Screen Shot 2021-04-26 at 8 36 47 AM" src="https://user-images.githubusercontent.com/20634257/116110504-9adf4600-a66a-11eb-8a84-245a586c422b.png">
 
-
-
-
-
